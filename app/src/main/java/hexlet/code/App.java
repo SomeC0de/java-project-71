@@ -7,6 +7,8 @@ import picocli.CommandLine.Parameters;
 
 import java.io.File;
 
+import hexlet.code.Extractor;
+
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference")
 public class App {
