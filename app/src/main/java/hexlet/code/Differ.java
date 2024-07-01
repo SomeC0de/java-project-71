@@ -26,6 +26,6 @@ public class Differ {
         return switch (style) {
             case "stylish" -> StylishFormatter.format(compareResult);
             default -> throw new RuntimeException("Unsupported extention!");
-        }
+        };
     }
 }
