@@ -2,39 +2,43 @@ package hexlet.code;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Extractor {
-    public static boolean isFileExists(String path) {
-        if ((path != null) && !path.isEmpty()) {
-            File file = new File(path);
-            return file.exists() & file.canRead();
-        } else {
-            return false;
-        }
-    }
-
-    public static List<String> readFile(String path) throws FileNotFoundException {
+    // TBD: handle exception in caller method
+    private static String readFile(String path) throws FileNotFoundException {
         if ((path != null) && !path.isEmpty()) {
             File file = new File(path);
             if (file.exists() && file.canRead()) {
-                List<String> result = new ArrayList<String>();
+                StringBuilder result = new StringBuilder();
                 Scanner sc = new Scanner(new FileReader(path));
                 String str;
 
                 while (sc.hasNext()) {
-                    str = sc.next();
-                    result.add(str);
+                    result.append(sc.next());
                 }
 
-                return result;
+                return result.toString();
             } else {
                 throw new FileNotFoundException();
             }
         } else {
             throw new FileNotFoundException();
         }
+    }
+
+    public static String getFileType(String filepath) {
+        // TBD:
+        return "";
+    }
+
+    private static Map<String, Object> splitOnSeparator (List<String> input) {
+        HashMap<String, Object> splited = new HashMap<String, Object>();
+
+        return  splited;
+    }
+
+    public static String decomposeInputFile(String pathToFile) throws FileNotFoundException {
+        return readFile(pathToFile);
     }
 }
