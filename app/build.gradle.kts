@@ -24,4 +24,4 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
+}git
