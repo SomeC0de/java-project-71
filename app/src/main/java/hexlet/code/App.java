@@ -6,10 +6,11 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
+import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference")
-public class App {
+public class App implements Callable<Integer> {
     private static final String DEFAULT_FORMAT = "stylish";
 
     @Option(
