@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Extractor {
-    // TBD: handle exception in caller method
     private static String readFile(String path) throws FileNotFoundException {
         if ((path != null) && !path.isEmpty()) {
             File file = new File(path);
@@ -30,12 +29,6 @@ public class Extractor {
     public static String getFileType(String filepath) {
         // TBD:
         return "";
-    }
-
-    private static Map<String, Object> splitOnSeparator (List<String> input) {
-        HashMap<String, Object> splited = new HashMap<String, Object>();
-
-        return  splited;
     }
 
     public static String decomposeInputFile(String pathToFile) throws FileNotFoundException {
