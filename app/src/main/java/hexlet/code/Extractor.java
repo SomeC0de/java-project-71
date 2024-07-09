@@ -1,37 +1,29 @@
 package hexlet.code;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.*;
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Extractor {
-    private static String readFile(String path) throws FileNotFoundException {
-        if ((path != null) && !path.isEmpty()) {
-            File file = new File(path);
-            if (file.exists() && file.canRead()) {
-                StringBuilder result = new StringBuilder();
-                Scanner sc = new Scanner(new FileReader(path));
-                String str;
+    public static String getFileType(String path) {
+        return FilenameUtils.getExtension(path);
+    }
 
-                while (sc.hasNext()) {
-                    result.append(sc.next());
-                }
+    public static String readFile(String pathToFile) throws IOException {
+        String result = null;
 
-                return result.toString();
-            } else {
-                throw new FileNotFoundException();
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathToFile))) {
+            result = reader.readLine();
+
+            while (result != null) {
+                result = reader.readLine();
             }
-        } else {
-            throw new FileNotFoundException();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
 
-    public static String getFileType(String filepath) {
-        // TBD:
-        return "";
-    }
-
-    public static String decomposeInputFile(String pathToFile) throws FileNotFoundException {
-        return readFile(pathToFile);
+        return result;
     }
 }
