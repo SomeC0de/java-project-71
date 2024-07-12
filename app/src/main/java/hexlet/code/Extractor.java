@@ -12,18 +12,17 @@ public class Extractor {
     }
 
     public static String readFile(String pathToFile) throws IOException {
-        String result = null;
+        StringBuilder fileContent = new StringBuilder();
+        String line;
 
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathToFile))) {
-            result = reader.readLine();
-
-            while (result != null) {
-                result = reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                fileContent.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return result;
+        return fileContent.toString();
     }
 }
