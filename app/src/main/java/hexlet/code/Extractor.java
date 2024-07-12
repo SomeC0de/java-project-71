@@ -15,7 +15,8 @@ public class Extractor {
         StringBuilder fileContent = new StringBuilder();
         String line;
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathToFile))) {
+        Path absolutePath = Paths.get(pathToFile).toAbsolutePath();
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(absolutePath.toUri()))) {
             while ((line = reader.readLine()) != null) {
                 fileContent.append(line);
             }
