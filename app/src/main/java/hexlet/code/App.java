@@ -5,11 +5,14 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
+import java.io.PrintWriter;
 import java.util.concurrent.Callable;
 
-@Command(name = "gendiff", mixinStandardHelpOptions = true,
-        description = "Compares two configuration files and shows a difference")
+@Command(name = "gendiff",
+        version = "1.0",
+        description = "Compares two configuration files and shows a difference",
+        mixinStandardHelpOptions = true,
+        exitCodeOnInvalidInput = 123)
 public class App implements Callable<Integer> {
     private static final String DEFAULT_FORMAT = "stylish";
 
