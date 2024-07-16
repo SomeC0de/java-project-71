@@ -1,15 +1,25 @@
 package hexlet.code;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import com.google.common.collect.MapDifference;
+import com.google.common.collect.Maps;
+
+import java.util.*;
 
 public class ContentComparator {
-    public static List<Map<String, Object>> compare (Map<String, Object> content1, Map<String, Object>content2) {
+    public enum fieldState {
+        NOT_CHANGED,
+        CHANGED,
+        REMOVED,
+        ADDED
+    };
+    public static List<Map<String, Object>> compare (Map<String, Object> left, Map<String, Object>right) {
         // TBD: foreach for every key to compare
         var keys = new TreeSet<>();
-        keys.addAll(content1.keySet());
-        keys.addAll(content2.keySet());
+        ArrayList<Map<String, Object>> compared = new ArrayList<Map<String, Object>>();
+        keys.addAll(left.keySet());
+        keys.addAll(right.keySet());
+        MapDifference<String, Object> difference = Maps.difference(left, right);
+
         return List.of(Map.of());
     }
 }
