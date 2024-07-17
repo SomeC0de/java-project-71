@@ -23,14 +23,14 @@ public class App implements Callable<Integer> {
     private String format = DEFAULT_FORMAT;
 
     @Parameters(index = "0", description = "path to first file")
-    private String filepath1;
+    private String filepathFrom;
 
     @Parameters(index = "1", description = "path to second file")
-    private String filepath2;
+    private String filepathTo;
 
     @Override
     public Integer call() throws Exception {
-        System.out.println(Differ.generate(filepath1, filepath2, format));
+        System.out.println(Differ.generate(filepathFrom, filepathTo, format));
         return 0;
 
     }

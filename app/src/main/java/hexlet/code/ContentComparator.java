@@ -6,10 +6,10 @@ import com.google.common.collect.Maps;
 import java.util.*;
 
 public class ContentComparator {
-    public static Map<String, CompareEntity> compare (Map<String, Object> left, Map<String, Object>right) {
+    public static Map<String, CompareEntity> compare (Map<String, Object> from, Map<String, Object> to) {
         var keys = new TreeSet<>();
-        keys.addAll(left.keySet());
-        keys.addAll(right.keySet());
+        keys.addAll(from.keySet());
+        keys.addAll(to.keySet());
 
         return Map.of();
     }

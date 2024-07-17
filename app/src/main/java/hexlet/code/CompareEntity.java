@@ -1,22 +1,22 @@
 package hexlet.code;
 
 public class CompareEntity {
-    public enum entityState {
-        NOT_CHANGED,
-        REMOVED,
-        ADDED
-    };
-    final entityState state;
+    final EntityState state;
     final Object valueFrom;
     final Object valueTo;
 
-    CompareEntity(entityState newState, Object newValueFrom, Object newValueTo) {
+    CompareEntity(EntityState newState, Object newValueFrom, Object newValueTo) {
         state = newState;
         valueFrom = newValueFrom;
         valueTo = newValueTo;
     }
+    CompareEntity(EntityState newState, Object newValue) {
+        state = newState;
+        valueFrom = newValue;
+        valueTo = newValue;
+    }
 
-    public final entityState getEntityState() {
+    public final EntityState getEntityState() {
         return state;
     }
 
