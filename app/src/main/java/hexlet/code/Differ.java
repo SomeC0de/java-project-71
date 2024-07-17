@@ -28,12 +28,12 @@ public class Differ {
         Map<String, Object> file1Parsed = Decomposer.parse(file1Content, file1Type);
         Map<String, Object> file2Parsed = Decomposer.parse(file2Content, file2Type);
 
-        List<Map<String, Object>> compared = ContentComparator.compare(file1Parsed, file2Parsed);
+        Map<String, CompareEntity> compared = ContentComparator.compare(file1Parsed, file2Parsed);
 
         return stylish(compared, format);
     }
 
-    public static String stylish(List<Map<String, Object>> compareResult, String style) {
+    public static String stylish(Map<String, CompareEntity> compareResult, String style) {
         // TBD:
         return switch (style) {
             case "stylish" -> StylishFormatter.format(compareResult);
