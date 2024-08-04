@@ -6,38 +6,38 @@ import java.util.List;
 import java.util.Map;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2, String format) {
+    public static String generate(String pathFrom, String pathTo, String format) {
         // TBD:
-        String file1Content = null;
+        String contentFrom = null;
         try {
-            file1Content = Extractor.readFile(filepath1);
+            contentFrom = Extractor.readFile(pathFrom);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String file2Content = null;
+        String contentTo = null;
         try {
-            file2Content = Extractor.readFile(filepath2);
+            contentTo = Extractor.readFile(pathTo);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String file1Type = Extractor.getFileType(filepath1);
-        String file2Type = Extractor.getFileType(filepath2);
+        String typeFrom = Extractor.getFileType(pathFrom);
+        String typeTo = Extractor.getFileType(pathTo);
 
-        Map<String, Object> file1Parsed = Decomposer.parse(file1Content, file1Type);
-        Map<String, Object> file2Parsed = Decomposer.parse(file2Content, file2Type);
+        Map<String, Object> parsedFrom = Decomposer.parse(contentFrom, typeFrom);
+        Map<String, Object> parsedTo = Decomposer.parse(contentTo, typeTo);
 
-        List<Map<String, Object>> compared = ContentComparator.compare(file1Parsed, file2Parsed);
+        Map<String, CompareEntity> compared = ContentComparator.compare(parsedFrom, parsedTo);
 
         return stylish(compared, format);
     }
 
-    public static String stylish(List<Map<String, Object>> compareResult, String style) {
+    public static String stylish(Map<String, CompareEntity> compareResult, String style) {
         // TBD:
         return switch (style) {
             case "stylish" -> StylishFormatter.format(compareResult);
-            default -> throw new RuntimeException("Unsupported extention!");
+            default -> throw new RuntimeException("Unsupported style type!");
         };
     }
 }
