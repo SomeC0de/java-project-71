@@ -2,6 +2,8 @@ plugins {
     java
     checkstyle
     application
+    jacoco
+    id("com.adarshr.test-logger") version "4.0.0"
 }
 
 application {
