@@ -15,11 +15,11 @@ jobs:
         with:
           java-version: '20'
           distribution: 'oracle'
-      - uses: gradle/gradle-build-action@v3
+      - uses: gradle/gradle-build-action@v4
         with:
           gradle-version: 8.3
       - name: Build app
-        run: make build
+        run: ${{github.workspace}}/app/make build
       - run: ./gradlew checkstyleMain
       - run: ./gradlew test
       - name: Code coverage
