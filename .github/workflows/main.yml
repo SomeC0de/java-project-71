@@ -19,7 +19,7 @@ jobs:
         with:
           gradle-version: 8.3
       - name: Build app
-        run: pwd
+        run: make build
       - run: ./gradlew checkstyleMain
       - run: ./gradlew test
       - name: Code coverage
