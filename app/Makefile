@@ -1,5 +1,8 @@
 .DEFAULT_GOAL := build-run
 
+build:
+	./gradlew clean build
+
 run-dist:
 	./build/install/app/bin/app
 
@@ -30,5 +33,3 @@ check-deps:
 build-run: build run
 
 .PHONY: build
-build:
-	./gradlew clean build
