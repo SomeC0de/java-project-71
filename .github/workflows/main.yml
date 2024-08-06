@@ -20,12 +20,12 @@ jobs:
         with:
           gradle-version: 8.3
           arguments: build
-      - run: ./gradlew checkstyleMain
-        with:
-          build-root-directory: app
-      - run: ./gradlew test
-        with:
-          build-root-directory: app
+#      - run: ./gradlew checkstyleMain
+#        with:
+#          build-root-directory: app
+#      - run: ./gradlew test
+#        with:
+#          build-root-directory: app
       - name: Code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
