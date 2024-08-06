@@ -22,14 +22,14 @@ jobs:
         run: make build
       - run: ./gradlew checkstyleMain
       - run: ./gradlew test
-          - name: Code coverage
-            uses: paambaati/codeclimate-action@v5.0.0g
-            env:
-              CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-              JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
-            with:
-              coverageCommand: make report
-              coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-              token: ${{ secrets.GITHUB_TOKEN }}
-              min-coverage-overall: 40
-              min-coverage-changed-files: 60
+      - name: Code coverage
+        uses: paambaati/codeclimate-action@v5.0.0g
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
+        with:
+          coverageCommand: make report
+          coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 40
+          min-coverage-changed-files: 60
