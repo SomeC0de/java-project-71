@@ -15,13 +15,11 @@ jobs:
         with:
           java-version: '20'
           distribution: 'oracle'
+      - name: Build app
       - uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 8.3
-      - name: Build app
-        run: make build
-        with:
-          build-root-directory: app
+          arguments: build
       - run: ./gradlew checkstyleMain
         with:
           build-root-directory: app
