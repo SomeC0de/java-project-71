@@ -4,7 +4,12 @@ on:
   - push
   - pull_request
 
+
 jobs:
+
+  env:
+    APP_DIR: ${{github.workspace}}/app/
+
   build:
     runs-on: ubuntu-latest
 
@@ -16,7 +21,9 @@ jobs:
           java-version: '20'
           distribution: 'oracle'
       - name: Build app
-        run: ./app/make build
+        run:
+            cd APP_DIR
+            make build
 #        uses: gradle/gradle-build-action@v3
 #        with:
 #          gradle-version: 8.3
