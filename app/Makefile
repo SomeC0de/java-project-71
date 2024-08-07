@@ -25,6 +25,7 @@ lint:
 	./gradlew checkstyleMain checkstyleTest
 
 report:
+	chmod +x gradlew
 	./gradlew jacocoTestReport
 
 check-deps:
