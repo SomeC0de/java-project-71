@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      APP_DIR: "${{github.workspace}}/app"
-
     steps:
       - uses: actions/checkout@v4
       - name: Setup JDK 20
@@ -35,9 +32,12 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
+          APP_DIR: "${{github.workspace}}/app"
         with:
           build-root-directory: app
-          coverageCommand: make report
+          coverageCommand:
+            cd app/
+            make report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
