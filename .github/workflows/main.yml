@@ -21,8 +21,8 @@ jobs:
           java-version: '20'
           distribution: 'oracle'
       - name: Build app
-        run:
-          echo APP_DIR
+#        run:
+#          echo APP_DIR
 #            cd APP_DIR
 #            make build
         uses: gradle/gradle-build-action@v3
