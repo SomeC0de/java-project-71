@@ -7,11 +7,11 @@ on:
 
 jobs:
 
-  env:
-    APP_DIR: ${{github.workspace}}/app/
-
   build:
     runs-on: ubuntu-latest
+
+    env:
+      APP_DIR: ${{github.workspace}}/app/
 
     steps:
       - uses: actions/checkout@v4
