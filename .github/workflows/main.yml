@@ -22,13 +22,14 @@ jobs:
           distribution: 'oracle'
       - name: Build app
         run:
-            cd APP_DIR
-            make build
-#        uses: gradle/gradle-build-action@v3
-#        with:
-#          gradle-version: 8.3
-#          arguments: build
-#          build-root-directory: app
+          echo APP_DIR
+#            cd APP_DIR
+#            make build
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.3
+          arguments: build
+          build-root-directory: app
       - name: Code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
