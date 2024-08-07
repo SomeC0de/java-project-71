@@ -1,7 +1,6 @@
 .DEFAULT_GOAL := build-run
 
 build:
-	chmod +x gradlew
 	./gradlew clean build
 
 run-dist:
@@ -26,7 +25,6 @@ lint:
 	./gradlew checkstyleMain checkstyleTest
 
 report:
-	chmod +x gradlew
 	./gradlew jacocoTestReport
 
 check-deps:
