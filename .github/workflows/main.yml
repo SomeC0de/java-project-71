@@ -28,15 +28,14 @@ jobs:
           arguments: build
           build-root-directory: app
       - name: Code coverage
-        uses: paambaati/codeclimate-action@v5.0.0
+        uses: paambaati/codeclimate-action@v8.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
           APP_DIR: "${{github.workspace}}/app"
         with:
-          build-root-directory: app
-          arguments: report
-#         coverageCommand: make report
+          workingDirectory: APP_DIR
+          coverageCommand: make report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
