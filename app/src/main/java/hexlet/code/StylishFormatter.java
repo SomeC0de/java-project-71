@@ -1,13 +1,12 @@
 package hexlet.code;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StylishFormatter {
-    private final static String MARK_UNCHANGED = "  ";
-    private final static String MARK_ADDED = "+ ";
-    private final static String MARK_REMOVED = "- ";
+    private static final String MARK_UNCHANGED = "  ";
+    private static final String MARK_ADDED = "+ ";
+    private static final String MARK_REMOVED = "- ";
     public static String format(Map<String, CompareEntity> compared) {
         StringBuilder result = new StringBuilder("{\n");
 

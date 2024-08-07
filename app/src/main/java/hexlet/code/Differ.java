@@ -1,8 +1,6 @@
 package hexlet.code;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 public class Differ {
