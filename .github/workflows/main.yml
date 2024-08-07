@@ -35,9 +35,8 @@ jobs:
           APP_DIR: "${{github.workspace}}/app"
         with:
           build-root-directory: app
-          coverageCommand:
-            cd app/
-            make report
+          arguments: report
+#         coverageCommand: make report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
