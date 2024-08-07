@@ -35,4 +35,3 @@ jobs:
           workingDirectory: app
           coverageCommand: make report
           coverageLocations: build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-          token: ${{ secrets.GITHUB_TOKEN }}
