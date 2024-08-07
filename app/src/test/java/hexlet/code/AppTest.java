@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
+package hexlet.code;
 
 public class AppTest {
 }
