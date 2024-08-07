@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      APP_DIR: ${{github.workspace}}/app/
+#    env:
+#      APP_DIR: ${{github.workspace}}/app/
 
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
           distribution: 'oracle'
       - name: Build app
         run:
-            cd APP_DIR
+            cd app
             make build
 #        uses: gradle/gradle-build-action@v3
 #        with:
