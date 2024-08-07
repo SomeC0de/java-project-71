@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := build-run
 
 build:
+	chmod +x gradlew
 	./gradlew clean build
 
 run-dist:
