@@ -21,10 +21,10 @@ jobs:
           gradle-version: 8.3
           arguments: build
           build-root-directory: app
-      - run: ./app/gradlew checkstyleMain
+      - run: ./gradlew checkstyleMain
 #        with:
 #          build-root-directory: app
-      - run: ./app/gradlew test
+      - run: ./gradlew test
 #        with:
 #          build-root-directory: app
       - name: Code coverage
