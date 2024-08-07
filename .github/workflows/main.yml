@@ -21,11 +21,11 @@ jobs:
           gradle-version: 8.3
           build-root-directory: app
       - name: Make gradlew executable
+        working-directory: app
         run: chmod +x ./gradlew
       - name: Build with Gradle
         working-directory: app
-        run:
-          ./gradlew build
+        run: ./gradlew build
       - name: Code coverage
         uses: paambaati/codeclimate-action@v8.0.0
         env:
