@@ -27,7 +27,7 @@ jobs:
         working-directory: app
         run: ./gradlew build
       - name: Code coverage
-        uses: paambaati/codeclimate-action@v8.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: ${{github.workspace}}/app/src/main/java
