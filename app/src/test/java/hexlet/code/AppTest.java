@@ -18,4 +18,10 @@ public class AppTest {
     public void dummyTest() {
         assertEquals(true, true);
     }
+
+    @Test
+    public void stylishJsonTest() throws IOException {
+        String actual = Differ.generate("src/test/resources/flat_list0.json",
+                "src/test/resources/flat_list1.json", "stylish");
+    }
 }
