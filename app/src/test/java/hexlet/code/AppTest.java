@@ -14,10 +14,6 @@ public class AppTest {
     public void beforeEach() throws IOException {
         diffFlat = Files.readString(Paths.get("src/test/resources/diffFlat"));
     }
-    @Test
-    public void dummyTest() {
-        assertEquals(true, true);
-    }
 
     @Test
     public void stylishJsonTest() throws IOException {
