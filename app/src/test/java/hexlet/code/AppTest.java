@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,5 +18,11 @@ public class AppTest {
     public void stylishJsonTest() throws IOException {
         String actual = Differ.generate("src/test/resources/flat_list0.json",
                 "src/test/resources/flat_list1.json", "stylish");
+    }
+
+    @Test
+    public void stylishYmlTest() throws IOException {
+        String actual = Differ.generate("src/test/resources/flat_list0.yml",
+                "src/test/resources/flat_list1.yml", "stylish");
     }
 }
