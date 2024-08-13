@@ -1,30 +1,21 @@
 package hexlet.code;
 
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 public class Differ {
     public static String generate(String pathFrom, String pathTo, String format) {
-        // TBD:
-        String contentFrom = null;
-        try {
-            contentFrom = Extractor.readFile(pathFrom);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        File fileFrom = new File(pathFrom);
+        File fileTo = new File(pathTo);
 
-        String contentTo = null;
-        try {
-            contentTo = Extractor.readFile(pathTo);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String typeFrom =  FilenameUtils.getExtension(pathFrom);
+        String typeTo = FilenameUtils.getExtension(pathTo);
 
-        String typeFrom = Extractor.getFileType(pathFrom);
-        String typeTo = Extractor.getFileType(pathTo);
-
-        Map<String, Object> parsedFrom = Decomposer.parse(contentFrom, typeFrom);
-        Map<String, Object> parsedTo = Decomposer.parse(contentTo, typeTo);
+        Map<String, Object> parsedFrom = Decomposer.parse(fileFrom, typeFrom);
+        Map<String, Object> parsedTo = Decomposer.parse(fileTo, typeTo);
 
         Map<String, CompareEntity> compared = ContentComparator.compare(parsedFrom, parsedTo);
 
