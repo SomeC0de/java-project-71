@@ -20,27 +20,27 @@ public class StylishFormatter {
                             throw new RuntimeException("Unknown record state!");
 
                         case NOT_CHANGED:
-                            s.append(MARK_UNCHANGED + key + " : " + record.getValueFrom());
+                            s.append(MARK_UNCHANGED + key + ": " + record.getValueFrom());
                             break;
 
                         case CHANGED:
-                            s.append(MARK_REMOVED + key + " : " + record.getValueFrom() + "\n");
-                            s.append("\t" + MARK_ADDED + key + " : " +  record.getValueTo());
+                            s.append(MARK_REMOVED + key + ": " + record.getValueFrom() + "\n");
+                            s.append("\t" + MARK_ADDED + key + ": " +  record.getValueTo());
                             break;
 
                         case ADDED:
-                            s.append(MARK_ADDED + key + " : " +  record.getValueTo());
+                            s.append(MARK_ADDED + key + ": " +  record.getValueTo());
                             break;
 
                         case REMOVED:
-                            s.append(MARK_REMOVED + key + " : " + record.getValueFrom());
+                            s.append(MARK_REMOVED + key + ": " + record.getValueFrom());
                             break;
                     }
                     return s;
                 }).collect(Collectors.joining("\n"));
 
         result.append(formated);
-        result.append("\n}\n");
+        result.append("\n}");
 
         return result.toString();
     }
