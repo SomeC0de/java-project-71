@@ -9,25 +9,14 @@ public class StylishFormatter {
 
         compared.forEach((key, value) -> {
             switch (value.getEntityState()) {
-                case NOT_CHANGED:
-                    result.add(String.format("    %s: %s", key, value.getValueFrom()));
-
-                case CHANGED:
+                case NOT_CHANGED -> result.add(String.format("    %s: %s", key, value.getValueFrom()));
+                case CHANGED -> {
                     result.add(String.format("  - %s: %s", key, value.getValueFrom()));
                     result.add(String.format("  + %s: %s", key, value.getValueTo()));
-                    break;
-
-                case ADDED:
-                    result.add(String.format("  + %s: %s", key, value.getValueTo()));
-                    break;
-
-                case REMOVED:
-                    result.add(String.format("  - %s: %s", key, value.getValueFrom()));
-                    break;
-
-                default:
-                    throw new RuntimeException("Unknown record state!");
-
+                }
+                case ADDED -> result.add(String.format("  + %s: %s", key, value.getValueTo()));
+                case REMOVED -> result.add(String.format("  - %s: %s", key, value.getValueFrom()));
+                default -> throw new RuntimeException("Unknown record state!");
             }
         });
 
