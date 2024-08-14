@@ -22,20 +22,20 @@ public class AppTest {
     public void stylishJsonTest() throws IOException {
         String actual = Differ.generate("src/test/resources/flat_list0.json",
                 "src/test/resources/flat_list1.json", "stylish");
-        assertEquals(actual, diffFlat);
+        assertEquals(diffFlat, actual);
     }
 
     @Test
     public void stylishYmlTest() throws IOException {
         String actual = Differ.generate("src/test/resources/flat_list0.yml",
                 "src/test/resources/flat_list1.yml", "stylish");
-        assertEquals(actual, diffFlat);
+        assertEquals(diffFlat, actual);
     }
 
     @Test
     public void stylishJsonNestedTest() throws IOException {
         String actual = Differ.generate("src/test/resources/nested_0.json",
                 "src/test/resources/nested_1.json", "stylish");
-        assertEquals(actual, diffNested);
+        assertEquals(diffNested, actual);
     }
 }
