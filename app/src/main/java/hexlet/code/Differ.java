@@ -13,8 +13,8 @@ public class Differ {
         String typeFrom =  FilenameUtils.getExtension(pathFrom);
         String typeTo = FilenameUtils.getExtension(pathTo);
 
-        Map<String, Object> parsedFrom = Decomposer.parse(fileFrom, typeFrom);
-        Map<String, Object> parsedTo = Decomposer.parse(fileTo, typeTo);
+        Map<String, Object> parsedFrom = Parser.parse(fileFrom, typeFrom);
+        Map<String, Object> parsedTo = Parser.parse(fileTo, typeTo);
 
         Map<String, CompareEntity> compared = ContentComparator.compare(parsedFrom, parsedTo);
 

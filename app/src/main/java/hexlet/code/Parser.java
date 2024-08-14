@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
-public class Decomposer {
+public class Parser {
     static final String FILETYPE_JSON = "json";
     static final String FILETYPE_YML = "yml";
     static final String FILETYPE_YAML = "yaml";
