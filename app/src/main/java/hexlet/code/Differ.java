@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.formatters.Formatter;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -24,14 +25,6 @@ public class Differ {
 
         Map<String, CompareRecord> compared = ContentComparator.compare(parsedFrom, parsedTo);
 
-        return stylish(compared, format);
-    }
-
-    public static String stylish(Map<String, CompareRecord> compareResult, String style) {
-        // TBD:
-        return switch (style) {
-            case "stylish" -> StylishFormatter.format(compareResult);
-            default -> throw new RuntimeException("Unsupported style type!");
-        };
+        return Formatter.formatWith(compared, format);
     }
 }

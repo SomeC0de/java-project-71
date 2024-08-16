@@ -1,22 +1,22 @@
 package hexlet.code;
 
 public class CompareRecord {
-    final EntityState state;
+    final RecordStatus state;
     final Object valueFrom;
     final Object valueTo;
 
-    CompareRecord(EntityState newState, Object newValueFrom, Object newValueTo) {
+    CompareRecord(RecordStatus newState, Object newValueFrom, Object newValueTo) {
         state = newState;
         valueFrom = newValueFrom;
         valueTo = newValueTo;
     }
-    CompareRecord(EntityState newState, Object newValue) {
+    CompareRecord(RecordStatus newState, Object newValue) {
         state = newState;
         valueFrom = newValue;
         valueTo = newValue;
     }
 
-    public final EntityState getEntityState() {
+    public final RecordStatus getEntityState() {
         return state;
     }
 

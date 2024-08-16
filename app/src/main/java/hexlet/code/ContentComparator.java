@@ -14,14 +14,14 @@ public class ContentComparator {
 
         return keys.stream().collect(Collectors.toMap(key -> key.toString(), key -> {
             if (from.containsKey(key) && !to.containsKey(key)) {
-                return new CompareRecord(EntityState.REMOVED, from.get(key));
+                return new CompareRecord(RecordStatus.REMOVED, from.get(key));
             } else  if (!from.containsKey(key) && to.containsKey(key)) {
-                return new CompareRecord(EntityState.ADDED, to.get(key));
+                return new CompareRecord(RecordStatus.ADDED, to.get(key));
             } else  if (from.containsKey(key) && to.containsKey(key)) {
                 if (Objects.equals(from.get(key), to.get(key))) {
-                    return new CompareRecord(EntityState.NOT_CHANGED, from.get(key));
+                    return new CompareRecord(RecordStatus.NOT_CHANGED, from.get(key));
                 } else {
-                    return new CompareRecord(EntityState.CHANGED, from.get(key), to.get(key));
+                    return new CompareRecord(RecordStatus.CHANGED, from.get(key), to.get(key));
                 }
             } else {
                 throw new RuntimeException("Error: Unknown key found!");
