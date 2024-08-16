@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
         mixinStandardHelpOptions = true,
         exitCodeOnInvalidInput = 123)
 public class App implements Callable<Integer> {
-    private static final String DEFAULT_FORMAT = "stylish";
+    public static final String DEFAULT_FORMAT = "stylish";
 
     @Option(
             names = {"-f", "--format"},

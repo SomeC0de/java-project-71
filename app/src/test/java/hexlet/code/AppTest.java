@@ -45,4 +45,10 @@ public class AppTest {
                 "src/test/resources/nested_1.yml", "stylish");
         assertEquals(diffNested, actual);
     }
+    @Test
+    public void defaultYmlNestedTest() throws IOException {
+        String actual = Differ.generate("src/test/resources/nested_0.yml",
+                "src/test/resources/nested_1.yml");
+        assertEquals(diffNested, actual);
+    }
 }

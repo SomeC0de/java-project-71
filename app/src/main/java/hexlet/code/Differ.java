@@ -5,7 +5,13 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.util.Map;
 
+import static hexlet.code.App.DEFAULT_FORMAT;
+
 public class Differ {
+    public static String generate(String pathFrom, String pathTo) {
+        return generate(pathFrom, pathTo, DEFAULT_FORMAT);
+    }
+
     public static String generate(String pathFrom, String pathTo, String format) {
         File fileFrom = new File(pathFrom);
         File fileTo = new File(pathTo);
