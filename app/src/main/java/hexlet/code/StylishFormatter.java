@@ -3,7 +3,6 @@ package hexlet.code;
 import java.util.Map;
 import java.util.StringJoiner;
 
-// TBD: replace consts to CompareEntity class as String
 enum EntityState {
     NOT_CHANGED {
         public String buildReport(String key, Object valueFrom, Object valueTo) {
