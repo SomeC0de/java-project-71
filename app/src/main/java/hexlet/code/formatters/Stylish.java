@@ -5,7 +5,7 @@ import hexlet.code.CompareRecord;
 import java.util.Map;
 import java.util.StringJoiner;
 
-public final class Stylish implements Style {
+public class Stylish implements Style {
     @Override
     public String format(Map<String, CompareRecord> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");

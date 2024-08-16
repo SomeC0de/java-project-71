@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.formatters.Formatter;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
