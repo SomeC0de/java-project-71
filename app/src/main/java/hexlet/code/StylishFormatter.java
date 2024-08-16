@@ -33,7 +33,7 @@ enum EntityState {
 }
 
 public class StylishFormatter {
-    public static String format(Map<String, CompareEntity> compared) {
+    public static String format(Map<String, CompareRecord> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
 
         compared.forEach((key, value) -> {

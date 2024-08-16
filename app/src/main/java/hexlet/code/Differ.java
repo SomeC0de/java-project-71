@@ -22,12 +22,12 @@ public class Differ {
         Map<String, Object> parsedFrom = Parser.parse(fileFrom, typeFrom);
         Map<String, Object> parsedTo = Parser.parse(fileTo, typeTo);
 
-        Map<String, CompareEntity> compared = ContentComparator.compare(parsedFrom, parsedTo);
+        Map<String, CompareRecord> compared = ContentComparator.compare(parsedFrom, parsedTo);
 
         return stylish(compared, format);
     }
 
-    public static String stylish(Map<String, CompareEntity> compareResult, String style) {
+    public static String stylish(Map<String, CompareRecord> compareResult, String style) {
         // TBD:
         return switch (style) {
             case "stylish" -> StylishFormatter.format(compareResult);

@@ -1,16 +1,16 @@
 package hexlet.code;
 
-public class CompareEntity {
+public class CompareRecord {
     final EntityState state;
     final Object valueFrom;
     final Object valueTo;
 
-    CompareEntity(EntityState newState, Object newValueFrom, Object newValueTo) {
+    CompareRecord(EntityState newState, Object newValueFrom, Object newValueTo) {
         state = newState;
         valueFrom = newValueFrom;
         valueTo = newValueTo;
     }
-    CompareEntity(EntityState newState, Object newValue) {
+    CompareRecord(EntityState newState, Object newValue) {
         state = newState;
         valueFrom = newValue;
         valueTo = newValue;
