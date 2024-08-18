@@ -9,29 +9,13 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
-    private static String diffFlat;
     private static String diffStylish;
     private static String diffPlain;
 
     @BeforeEach
     public void beforeEach() throws IOException {
-        diffFlat = Files.readString(Paths.get("src/test/resources/diffFlat"));
         diffStylish = Files.readString(Paths.get("src/test/resources/diffStylish"));
         diffPlain = Files.readString(Paths.get("src/test/resources/diffPlain"));
-    }
-
-    @Test
-    public void stylishJsonTest() throws IOException {
-        String actual = Differ.generate("src/test/resources/flat_list0.json",
-                "src/test/resources/flat_list1.json", "stylish");
-        assertEquals(diffFlat, actual);
-    }
-
-    @Test
-    public void stylishYmlTest() throws IOException {
-        String actual = Differ.generate("src/test/resources/flat_list0.yml",
-                "src/test/resources/flat_list1.yml", "stylish");
-        assertEquals(diffFlat, actual);
     }
 
     @Test
@@ -47,6 +31,7 @@ public class AppTest {
                 "src/test/resources/nested_1.yml", "stylish");
         assertEquals(diffStylish, actual);
     }
+
     @Test
     public void defaultYmlNestedTest() throws IOException {
         String actual = Differ.generate("src/test/resources/nested_0.yml",
