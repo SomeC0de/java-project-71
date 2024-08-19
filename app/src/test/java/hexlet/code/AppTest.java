@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AppTest {
     private static String diffStylish;
     private static String diffPlain;
+    private static String diffJson;
 
     @BeforeEach
     public void beforeEach() throws IOException {
         diffStylish = Files.readString(Paths.get("src/test/resources/diffStylish"));
         diffPlain = Files.readString(Paths.get("src/test/resources/diffPlain"));
+        diffJson = Files.readString(Paths.get("src/test/resources/diffJson.json"));
     }
 
     @Test
@@ -51,5 +53,19 @@ public class AppTest {
         String actual = Differ.generate("src/test/resources/nested_0.yml",
                 "src/test/resources/nested_1.yml", "plain");
         assertEquals(diffPlain, actual);
+    }
+
+    @Test
+    public void jsonJsonNestedTest() throws IOException {
+        String actual = Differ.generate("src/test/resources/nested_0.json",
+                "src/test/resources/nested_1.json", "json");
+        assertEquals(diffJson, actual);
+    }
+
+    @Test
+    public void jsonYmlNestedTest() throws IOException {
+        String actual = Differ.generate("src/test/resources/nested_0.yml",
+                "src/test/resources/nested_1.yml", "json");
+        assertEquals(diffJson, actual);
     }
 }
