@@ -1,72 +1,72 @@
 [ {
   "key" : "chars1",
-  "type" : "unchanged",
+  "state": "unchanged",
   "value" : [ "a", "b", "c" ]
 }, {
   "key" : "chars2",
-  "type" : "changed",
+  "state": "changed",
   "from": [ "d", "e", "f" ],
   "to": false
 }, {
   "key" : "checked",
-  "type" : "changed",
+  "state": "changed",
   "from": false,
   "to": true
 }, {
   "key" : "default",
-  "type" : "changed",
+  "state": "changed",
   "from": null,
   "to": [ "value1", "value2" ]
 }, {
   "key" : "id",
-  "type" : "changed",
+  "state": "changed",
   "from": 45,
   "to": null
 }, {
   "key" : "key1",
-  "type" : "deleted",
+  "state": "deleted",
   "value" : "value1"
 }, {
   "key" : "key2",
-  "type" : "added",
+  "state": "added",
   "value" : "value2"
 }, {
   "key" : "numbers1",
-  "type" : "unchanged",
+  "state": "unchanged",
   "value" : [ 1, 2, 3, 4 ]
 }, {
   "key" : "numbers2",
-  "type" : "changed",
+  "state": "changed",
   "from": [ 2, 3, 4, 5 ],
   "to": [ 22, 33, 44, 55 ]
 }, {
   "key" : "numbers3",
-  "type" : "deleted",
+  "state": "deleted",
   "value" : [ 3, 4, 5 ]
 }, {
   "key" : "numbers4",
-  "type" : "added",
+  "state": "added",
   "value" : [ 4, 5, 6 ]
 }, {
   "key" : "obj1",
-  "type" : "added",
+  "state": "added",
   "value" : {
     "nestedKey" : "value",
     "isNested" : true
   }
 }, {
   "key" : "setting1",
-  "type" : "changed",
+  "state": "changed",
   "from": "Some value",
   "to": "Another value"
 }, {
   "key" : "setting2",
-  "type" : "changed",
+  "state": "changed",
   "from": 200,
   "to": 300
 }, {
   "key" : "setting3",
-  "type" : "changed",
+  "state": "changed",
   "from": true,
   "to": "none"
 } ]
