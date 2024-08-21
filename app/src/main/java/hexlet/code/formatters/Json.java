@@ -10,21 +10,21 @@ import org.apache.commons.lang3.ClassUtils;
 import java.util.*;
 
 public class Json implements Style {
-    private List<Map<String, String>> prepareDiff(Map <String, CompareRecord> rawDiff) {
-        List<Map<String, String>> prepared = new ArrayList<>();
+    private List<Map<String, Object>> prepareDiff(Map <String, CompareRecord> rawDiff) {
+        List<Map<String, Object>> prepared = new ArrayList<>();
 
         rawDiff.forEach((key, value) -> {
-            Map<String, String> record = new LinkedHashMap<>();
+            Map<String, Object> record = new LinkedHashMap<>();
             record.put("key", key);
             record.put("state", value.getEntityState().getState());
 
             switch (value.getEntityState()) {
                 case CHANGED -> {
-                    record.put("from", getStringValue(value.getValueFrom()));
-                    record.put("to", getStringValue(value.getValueTo()));
+                    record.put("from", value.getValueFrom());
+                    record.put("to", value.getValueTo());
                 }
-                case NOT_CHANGED, REMOVED -> record.put("value", getStringValue(value.getValueFrom()));
-                case ADDED -> record.put("value", getStringValue(value.getValueTo()));
+                case NOT_CHANGED, REMOVED -> record.put("value", value.getValueFrom());
+                case ADDED -> record.put("value", value.getValueTo());
                 default ->  throw new RuntimeException("Unknown record state!");
             }
             prepared.add(record);
@@ -33,32 +33,15 @@ public class Json implements Style {
         return prepared;
     }
 
-    private static String getStringValue(Object obj) {
-        if (null == obj) {
-            return "null";
-        }
-
-        if (obj instanceof String) {
-            return String.format("'%s'", obj);
-        }
-
-        return obj.toString();
-    }
-
     @Override
     public String format(Map<String, CompareRecord> compared) {
-        final StringJoiner result = new StringJoiner(", ", "[ ", " ]");
-        List<Map<String, String>> preparedDiff = prepareDiff(compared);
+        List<Map<String, Object>> preparedDiff = prepareDiff(compared);
 
-        preparedDiff.forEach(value -> {
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            try {
-                result.add(String.format(ow.writeValueAsString(value)));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        return result.toString();
+        ObjectMapper om = new ObjectMapper();
+        try {
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(preparedDiff);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
