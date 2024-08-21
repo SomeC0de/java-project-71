@@ -2,15 +2,15 @@ package hexlet.code.formatters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import hexlet.code.CompareRecord;
-import hexlet.code.RecordStatus;
-import org.apache.commons.lang3.ClassUtils;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Json implements Style {
-    private List<Map<String, Object>> prepareDiff(Map <String, CompareRecord> rawDiff) {
+    private List<Map<String, Object>> prepareDiff(Map<String, CompareRecord> rawDiff) {
         List<Map<String, Object>> prepared = new ArrayList<>();
 
         rawDiff.forEach((key, value) -> {

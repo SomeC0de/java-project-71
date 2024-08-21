@@ -1,25 +1,25 @@
 package hexlet.code;
 
 enum DiffStyle {
-        STYLISH,
-        PLAIN,
-        JSON,
-        DIFF_STYLE_MAX
+    STYLISH,
+    PLAIN,
+    JSON,
+    DIFF_STYLE_MAX
 }
 
 public enum RecordStatus {
-        NOT_CHANGED("unchanged"),
-        CHANGED("changed"),
-        REMOVED("deleted"),
-        ADDED("added");
+    NOT_CHANGED("unchanged"),
+    CHANGED("changed"),
+    REMOVED("deleted"),
+    ADDED("added");
 
-        private String state;
+    private String state;
 
-        RecordStatus(String state) {
-                this.state = state;
-        }
+    RecordStatus(String state) {
+        this.state = state;
+    }
 
-        public String getState() {
-                return state;
-        }
+    public String getState() {
+        return state;
+    }
 }
