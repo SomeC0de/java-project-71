@@ -3,6 +3,7 @@ package hexlet.code;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import static hexlet.code.App.DEFAULT_FORMAT;
@@ -22,7 +23,7 @@ public class Differ {
         Map<String, Object> parsedFrom = Parser.parse(fileFrom, typeFrom);
         Map<String, Object> parsedTo = Parser.parse(fileTo, typeTo);
 
-        Map<String, CompareRecord> compared = ContentComparator.compare(parsedFrom, parsedTo);
+        List<Map<String, Object>> compared = ContentComparator.compare(parsedFrom, parsedTo);
 
         return Formatter.formatWith(compared, format);
     }
