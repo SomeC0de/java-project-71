@@ -1,12 +1,8 @@
 package hexlet.code.formatters;
 
-import org.apache.commons.lang3.ClassUtils;
-
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-
-import static hexlet.code.RecordStatus.*;
 
 public class Stylish implements Style {
     @Override
@@ -18,7 +14,7 @@ public class Stylish implements Style {
             String state = value.get("state").toString();
 
             switch (state) {
-                case "unchanged" ->{
+                case "unchanged" -> {
                     String val = makeString(value.get("value"));
                     result.add(String.format("    %s: %s", key, val));
                 }
