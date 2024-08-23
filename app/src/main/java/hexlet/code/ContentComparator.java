@@ -23,36 +23,35 @@ public class ContentComparator {
         keys.addAll(to.keySet());
 
         return keys.stream().map(key -> {
-            if (from.containsKey(key.toString()) && !to.containsKey(key.toString())) {
-                return new LinkedHashMap<String, Object>() {{
-                        put(KEY_ID_KEY, key.toString());
-                        put(KEY_ID_STATE, STATUS_DELETED);
-                        put(KEY_ID_VALUE, from.get(key.toString()));
-                    }};
-            } else  if (!from.containsKey(key.toString()) && to.containsKey(key.toString())) {
-                return new LinkedHashMap<String, Object>() {{
-                        put(KEY_ID_KEY, key.toString());
-                        put(KEY_ID_STATE, STATUS_ADDED);
-                        put(KEY_ID_VALUE, to.get(key.toString()));
-                    }};
-            } else if (from.containsKey(key.toString()) && to.containsKey(key.toString())) {
-                if (Objects.equals(from.get(key.toString()), to.get(key.toString()))) {
-                    return new LinkedHashMap<String, Object>() {{
-                            put(KEY_ID_KEY, key.toString());
-                            put(KEY_ID_STATE, STATUS_UNCHANGED);
-                            put(KEY_ID_VALUE, from.get(key.toString()));
-                        }};
+            String s =  key.toString();
+            if (from.containsKey(s) && !to.containsKey(s)) {
+                return generateRecord(s, STATUS_DELETED, from.get(key.toString()));
+            } else  if (!from.containsKey(s) && to.containsKey(s)) {
+                return generateRecord(s, STATUS_ADDED, to.get(s));
+            } else if (from.containsKey(s) && to.containsKey(s)) {
+                if (Objects.equals(from.get(s), to.get(s))) {
+                    return generateRecord(s, STATUS_UNCHANGED, from.get(s));
                 } else {
-                    return new LinkedHashMap<String, Object>() {{
-                            put(KEY_ID_KEY, key.toString());
-                            put(KEY_ID_STATE, STATUS_CHANGED);
-                            put(KEY_ID_FROM, from.get(key.toString()));
-                            put(KEY_ID_TO, to.get(key.toString()));
-                        }};
+                    return generateRecord(s, STATUS_CHANGED, from.get(s), to.get(s));
                 }
             } else {
                 throw new RuntimeException("Error: Unknown key found!");
             }
         }).collect(Collectors.toList());
+    }
+
+    private static Map<String, Object> generateRecord(String key, Object state, Object value) {
+        return new LinkedHashMap<String, Object>(Map.of(
+                KEY_ID_KEY, key.toString(),
+                KEY_ID_STATE, state,
+                KEY_ID_VALUE, value));
+    }
+
+    private static Map<String, Object> generateRecord(String key, Object state, Object from, Object to) {
+        return new LinkedHashMap<String, Object>(Map.of(
+                KEY_ID_KEY, key.toString(),
+                KEY_ID_STATE, state,
+                KEY_ID_FROM, from,
+                KEY_ID_TO, to));
     }
 }
