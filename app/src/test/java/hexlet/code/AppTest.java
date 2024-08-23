@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AppTest {
+public final class AppTest {
     private static String diffStylish;
     private static String diffPlain;
     private static String diffJson;

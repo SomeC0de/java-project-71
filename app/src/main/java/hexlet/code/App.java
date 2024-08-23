@@ -9,9 +9,8 @@ import java.util.concurrent.Callable;
 @Command(name = "gendiff",
         version = "1.0",
         description = "Compares two configuration files and shows a difference",
-        mixinStandardHelpOptions = true,
-        exitCodeOnInvalidInput = 123)
-public class App implements Callable<Integer> {
+        mixinStandardHelpOptions = true)
+public final class App implements Callable<Integer> {
     public static final String DEFAULT_FORMAT = "stylish";
 
     @Option(

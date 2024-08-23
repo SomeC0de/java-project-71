@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Map;
 
-public class Json implements Style {
+public final class Json implements Style {
     @Override
     public String format(List<Map<String, Object>> compared) {
         ObjectMapper om = new ObjectMapper();

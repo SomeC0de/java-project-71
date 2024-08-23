@@ -16,7 +16,7 @@ import static hexlet.code.Comparator.KEY_ID_STATE;
 import static hexlet.code.Comparator.KEY_ID_VALUE;
 import static hexlet.code.Comparator.KEY_ID_FROM;
 import static hexlet.code.Comparator.KEY_ID_TO;
-public class Plain implements Style {
+public final class Plain implements Style {
     @Override
     public String format(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n");
