@@ -23,7 +23,7 @@ public class Differ {
         Map<String, Object> parsedFrom = Parser.parse(fileFrom, typeFrom);
         Map<String, Object> parsedTo = Parser.parse(fileTo, typeTo);
 
-        List<Map<String, Object>> compared = ContentComparator.compare(parsedFrom, parsedTo);
+        List<Map<String, Object>> compared = Comparator.compare(parsedFrom, parsedTo);
 
         return Formatter.formatWith(compared, format);
     }

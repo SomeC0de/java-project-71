@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import static hexlet.code.ContentComparator.STATUS_UNCHANGED;
-import static hexlet.code.ContentComparator.STATUS_CHANGED;
-import static hexlet.code.ContentComparator.STATUS_ADDED;
-import static hexlet.code.ContentComparator.STATUS_DELETED;
+import static hexlet.code.Comparator.STATUS_UNCHANGED;
+import static hexlet.code.Comparator.STATUS_CHANGED;
+import static hexlet.code.Comparator.STATUS_ADDED;
+import static hexlet.code.Comparator.STATUS_DELETED;
 
-import static hexlet.code.ContentComparator.KEY_ID_KEY;
-import static hexlet.code.ContentComparator.KEY_ID_STATE;
-import static hexlet.code.ContentComparator.KEY_ID_VALUE;
-import static hexlet.code.ContentComparator.KEY_ID_FROM;
-import static hexlet.code.ContentComparator.KEY_ID_TO;
+import static hexlet.code.Comparator.KEY_ID_KEY;
+import static hexlet.code.Comparator.KEY_ID_STATE;
+import static hexlet.code.Comparator.KEY_ID_VALUE;
+import static hexlet.code.Comparator.KEY_ID_FROM;
+import static hexlet.code.Comparator.KEY_ID_TO;
 
 public class Stylish implements Style {
     @Override

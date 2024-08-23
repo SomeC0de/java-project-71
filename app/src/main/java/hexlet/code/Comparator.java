@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class ContentComparator {
+public class Comparator {
     public static final String STATUS_UNCHANGED = "unchanged";
     public static final String STATUS_CHANGED = "changed";
     public static final String STATUS_ADDED = "added";
