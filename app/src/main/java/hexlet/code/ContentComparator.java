@@ -41,17 +41,23 @@ public class ContentComparator {
     }
 
     private static Map<String, Object> generateRecord(String key, Object state, Object value) {
-        return new LinkedHashMap<String, Object>(Map.of(
-                KEY_ID_KEY, key.toString(),
-                KEY_ID_STATE, state,
-                KEY_ID_VALUE, value));
+        Map<String, Object> record = new LinkedHashMap<String, Object>();
+
+        record.put(KEY_ID_KEY, key);
+        record.put(KEY_ID_STATE, state);
+        record.put(KEY_ID_VALUE, value);
+
+        return record;
     }
 
     private static Map<String, Object> generateRecord(String key, Object state, Object from, Object to) {
-        return new LinkedHashMap<String, Object>(Map.of(
-                KEY_ID_KEY, key.toString(),
-                KEY_ID_STATE, state,
-                KEY_ID_FROM, from,
-                KEY_ID_TO, to));
+        Map<String, Object> record = new LinkedHashMap<String, Object>();
+
+        record.put(KEY_ID_KEY, key);
+        record.put(KEY_ID_STATE, state);
+        record.put(KEY_ID_FROM, from);
+        record.put(KEY_ID_TO, to);
+
+        return record;
     }
 }
