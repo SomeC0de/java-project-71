@@ -4,32 +4,43 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
+import static hexlet.code.ContentComparator.STATUS_UNCHANGED;
+import static hexlet.code.ContentComparator.STATUS_CHANGED;
+import static hexlet.code.ContentComparator.STATUS_ADDED;
+import static hexlet.code.ContentComparator.STATUS_DELETED;
+
+import static hexlet.code.ContentComparator.KEY_ID_KEY;
+import static hexlet.code.ContentComparator.KEY_ID_STATE;
+import static hexlet.code.ContentComparator.KEY_ID_VALUE;
+import static hexlet.code.ContentComparator.KEY_ID_FROM;
+import static hexlet.code.ContentComparator.KEY_ID_TO;
+
 public class Stylish implements Style {
     @Override
     public String format(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
 
         compared.forEach(value -> {
-            String key = value.get("key").toString();
-            String state = value.get("state").toString();
+            String key = value.get(KEY_ID_KEY).toString();
+            String state = value.get(KEY_ID_STATE).toString();
 
             switch (state) {
-                case "unchanged" -> {
-                    String val = makeString(value.get("value"));
+                case STATUS_UNCHANGED -> {
+                    String val = makeString(value.get(KEY_ID_VALUE));
                     result.add(String.format("    %s: %s", key, val));
                 }
-                case "changed" -> {
-                    String from = makeString(value.get("from"));
-                    String to = makeString(value.get("to"));
+                case STATUS_CHANGED -> {
+                    String from = makeString(value.get(KEY_ID_FROM));
+                    String to = makeString(value.get(KEY_ID_TO));
                     result.add(String.format("  - %s: %s", key, from));
                     result.add(String.format("  + %s: %s", key, to));
                 }
-                case "added" -> {
-                    String val = makeString(value.get("value"));
+                case STATUS_ADDED -> {
+                    String val = makeString(value.get(KEY_ID_VALUE));
                     result.add(String.format("  + %s: %s", key, val));
                 }
-                case "deleted" -> {
-                    String val = makeString(value.get("value"));
+                case STATUS_DELETED -> {
+                    String val = makeString(value.get(KEY_ID_VALUE));
                     result.add(String.format("  - %s: %s", key, val));
                 }
                 default -> throw new RuntimeException("Unknown record state!");

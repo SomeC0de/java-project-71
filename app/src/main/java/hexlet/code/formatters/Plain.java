@@ -6,28 +6,38 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
+import static hexlet.code.ContentComparator.STATUS_UNCHANGED;
+import static hexlet.code.ContentComparator.STATUS_CHANGED;
+import static hexlet.code.ContentComparator.STATUS_ADDED;
+import static hexlet.code.ContentComparator.STATUS_DELETED;
+
+import static hexlet.code.ContentComparator.KEY_ID_KEY;
+import static hexlet.code.ContentComparator.KEY_ID_STATE;
+import static hexlet.code.ContentComparator.KEY_ID_VALUE;
+import static hexlet.code.ContentComparator.KEY_ID_FROM;
+import static hexlet.code.ContentComparator.KEY_ID_TO;
 public class Plain implements Style {
     @Override
     public String format(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n");
 
         compared.forEach(value -> {
-            String key = value.get("key").toString();
-            String state = value.get("state").toString();
+            String key = value.get(KEY_ID_KEY).toString();
+            String state = value.get(KEY_ID_STATE).toString();
 
             switch (state) {
-                case "unchanged" -> {
+                case STATUS_UNCHANGED -> {
                 }
-                case "changed" -> {
-                    String from = makeString(value.get("from"));
-                    String to = makeString(value.get("to"));
+                case STATUS_CHANGED -> {
+                    String from = makeString(value.get(KEY_ID_FROM));
+                    String to = makeString(value.get(KEY_ID_TO));
                     result.add(String.format("Property '%s' was updated. From %s to %s", key, from, to));
                 }
-                case "added" -> {
-                    String val = makeString(value.get("value"));
+                case STATUS_ADDED  -> {
+                    String val = makeString(value.get(KEY_ID_VALUE));
                     result.add(String.format("Property '%s' was added with value: %s", key, val));
                 }
-                case "deleted" -> {
+                case STATUS_DELETED -> {
                     result.add(String.format("Property '%s' was removed", key));
                 }
                 default -> throw new RuntimeException("Unknown record state!");

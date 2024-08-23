@@ -8,6 +8,15 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class ContentComparator {
+    public static final String STATUS_UNCHANGED = "unchanged";
+    public static final String STATUS_CHANGED = "changed";
+    public static final String STATUS_ADDED = "added";
+    public static final String STATUS_DELETED = "deleted";
+    public static final String KEY_ID_KEY = "key";
+    public static final String KEY_ID_STATE = "state";
+    public static final String KEY_ID_VALUE = "value";
+    public static final String KEY_ID_FROM = "from";
+    public static final String KEY_ID_TO = "to";
     public static List<Map<String, Object>> compare(Map<String, Object> from, Map<String, Object> to) {
         var keys = new TreeSet<>();
         keys.addAll(from.keySet());
@@ -16,29 +25,29 @@ public class ContentComparator {
         return keys.stream().map(key -> {
             if (from.containsKey(key.toString()) && !to.containsKey(key.toString())) {
                 return new LinkedHashMap<String, Object>() {{
-                        put("key", key.toString());
-                        put("state", RecordStatus.REMOVED.getState());
-                        put("value", from.get(key.toString()));
+                        put(KEY_ID_KEY, key.toString());
+                        put(KEY_ID_STATE, STATUS_DELETED);
+                        put(KEY_ID_VALUE, from.get(key.toString()));
                     }};
             } else  if (!from.containsKey(key.toString()) && to.containsKey(key.toString())) {
                 return new LinkedHashMap<String, Object>() {{
-                        put("key", key.toString());
-                        put("state", RecordStatus.ADDED.getState());
-                        put("value", to.get(key.toString()));
+                        put(KEY_ID_KEY, key.toString());
+                        put(KEY_ID_STATE, STATUS_ADDED);
+                        put(KEY_ID_VALUE, to.get(key.toString()));
                     }};
             } else if (from.containsKey(key.toString()) && to.containsKey(key.toString())) {
                 if (Objects.equals(from.get(key.toString()), to.get(key.toString()))) {
                     return new LinkedHashMap<String, Object>() {{
-                            put("key", key.toString());
-                            put("state", RecordStatus.NOT_CHANGED.getState());
-                            put("value", from.get(key.toString()));
+                            put(KEY_ID_KEY, key.toString());
+                            put(KEY_ID_STATE, STATUS_UNCHANGED);
+                            put(KEY_ID_VALUE, from.get(key.toString()));
                         }};
                 } else {
                     return new LinkedHashMap<String, Object>() {{
-                            put("key", key.toString());
-                            put("state", RecordStatus.CHANGED.getState());
-                            put("from", from.get(key.toString()));
-                            put("to", to.get(key.toString()));
+                            put(KEY_ID_KEY, key.toString());
+                            put(KEY_ID_STATE, STATUS_CHANGED);
+                            put(KEY_ID_FROM, from.get(key.toString()));
+                            put(KEY_ID_TO, to.get(key.toString()));
                         }};
                 }
             } else {
