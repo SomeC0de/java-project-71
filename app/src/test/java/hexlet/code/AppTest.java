@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AppTest {
     private static String diffStylish;
@@ -20,6 +21,26 @@ public class AppTest {
         diffJson = Files.readString(Paths.get("src/test/resources/diffJson"));
     }
 
+    @Test
+    public void wrongParametersTest() {
+        assertThrows(RuntimeException.class, () ->
+                Differ.generate("src/test/resources/nested_0.json",
+                        "src/test/resources/nested_1.json", "blahblahblah"));
+    }
+
+    @Test
+    public void nullParametersTest() {
+        assertThrows(NullPointerException.class, () ->
+                Differ.generate(null,
+                        "src/test/resources/nested_1.json", "json"));
+    }
+
+    @Test
+    public void wrongPathTest() {
+        assertThrows(RuntimeException.class, () ->
+                Differ.generate("nested_0.json",
+                        "src/test/resources/nested_1.json", "plain"));
+    }
     @Test
     public void stylishJsonNestedTest() throws IOException {
         String actual = Differ.generate("src/test/resources/nested_0.json",
