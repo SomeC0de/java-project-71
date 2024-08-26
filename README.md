@@ -5,7 +5,7 @@
 
 ## Демонстрация работы утилиты:
 1) Выбор формата stylish для файлов с расширением json:
-[![asciicast](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3.svg)](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3?autoplay=true)
+[![asciicast](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3?autoplay=true.svg)](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3?autoplay=true)
 и yaml:
 [![asciicast](https://asciinema.org/a/pgSF66dnFe4Fr7C5uiYg5v2Xl.svg)](https://asciinema.org/a/pgSF66dnFe4Fr7C5uiYg5v2Xl?autoplay=true)
 
