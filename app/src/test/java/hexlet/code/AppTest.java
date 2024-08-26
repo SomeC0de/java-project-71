@@ -16,9 +16,9 @@ public final class AppTest {
 
     @BeforeEach
     public void beforeEach() throws IOException {
-        diffStylish = Files.readString(Paths.get("src/test/resources/diffStylish"));
-        diffPlain = Files.readString(Paths.get("src/test/resources/diffPlain"));
-        diffJson = Files.readString(Paths.get("src/test/resources/diffJson"));
+        diffStylish = Files.readString(Paths.get("src/test/resources/diffStylish.txt"));
+        diffPlain = Files.readString(Paths.get("src/test/resources/diffPlain.txt"));
+        diffJson = Files.readString(Paths.get("src/test/resources/diffJson.json"));
     }
 
     @Test
