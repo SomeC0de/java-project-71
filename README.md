@@ -4,7 +4,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3f0d962d4b59777bc8da/test_coverage)](https://codeclimate.com/github/SomeC0de/java-project-71/test_coverage)
 
 ## Демонстрация работы утилиты:
-1) Выбор формата stylish для файлов с расширением [![json](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3.svg)](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3?start-at=1)
+1) Выбор формата stylish для файлов с расширением [![json](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3.svg)](https://asciinema.org/a/PtDZKJPXjk2RKIi5wkD4xfaM3??t=1)
 и [yaml](https://asciinema.org/a/pgSF66dnFe4Fr7C5uiYg5v2Xl).
 2) Формат stylish как [опция по умолчанию](https://asciinema.org/a/352fsfZdqAFtwvtEVeYcSds5l).
 3) Выбор формата plain для файлов с расширением [json](https://asciinema.org/a/TFHvCFgmPgsUCKFAxjgNiRZxG) и [yaml](https://asciinema.org/a/nnci3MmJx5VF0la9tjUb8PXWa).
