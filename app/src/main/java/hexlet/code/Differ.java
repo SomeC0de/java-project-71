@@ -73,7 +73,7 @@ public class Differ {
         fullName.append(String.format("%s_%s", "diff", sdf.format(date)));
 
         switch (format) {
-            case "stylish", "plain" -> fullName.append(".txt");
+            case "stylish", "plain" -> fullName.append(String.format("_%s.txt", format));
             case "json" -> fullName.append(".json");
             default -> throw new RuntimeException("Unsupported style type!");
         };
