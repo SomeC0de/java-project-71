@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.CRC32;
+import java.util.zip.Checksum;
 
 import static hexlet.code.App.DEFAULT_FORMAT;
 
@@ -30,13 +32,16 @@ public class Differ {
 
         List<Map<String, Object>> compared = Comparator.compare(parsedFrom, parsedTo);
 
-        return Formatter.formatWith(compared, format);
+        String diff = Formatter.formatWith(compared, format);
+        saveToFile(diff, format);
+
+        return diff;
     }
-
     private static void saveToFile(String diff, String format) {
-        String fullName = generateFullName(format);
-        File file = new File(fullName);
+        String pathToFolder = createDiffFolder();
+        String fullName = generateFileName(diff, format, pathToFolder);
 
+        File file = new File(fullName);
         try {
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
@@ -45,10 +50,9 @@ public class Differ {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    private static String generateFullName(String format) {
+    private static String createDiffFolder() {
         File folderDiff = new File(System.getProperty("user.home") + File.separator + "Differ");
 
         if (!folderDiff.exists()) {
@@ -57,17 +61,19 @@ public class Differ {
             }
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmmss");
-        Date date = new Date();
-        System.out.println(sdf.format(date));
+        return folderDiff.toString();
+    }
 
-        StringBuilder fullName = new StringBuilder();
+    private static String generateFileName(String diff, String format, String pathToDiffFolder) {
+        StringBuilder fullName = new StringBuilder(pathToDiffFolder).append(File.separator);
 
-        fullName.append(folderDiff).append(File.separator);
-        fullName.append(String.format("%s_%s", "diff", sdf.format(date)));
+        byte[] inputAsBytes = diff.getBytes();
+        Checksum checksum = new CRC32();
+        checksum.update(inputAsBytes, 0, inputAsBytes.length);
+        fullName.append(String.format("%s_%s_%s", "diff", format, checksum.getValue()));
 
         switch (format) {
-            case "stylish", "plain" -> fullName.append(String.format("_%s.txt", format));
+            case "stylish", "plain" -> fullName.append(String.format(".txt", format));
             case "json" -> fullName.append(".json");
             default -> throw new RuntimeException("Unsupported style type!");
         }
