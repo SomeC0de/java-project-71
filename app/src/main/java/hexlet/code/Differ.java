@@ -30,10 +30,7 @@ public class Differ {
 
         List<Map<String, Object>> compared = Comparator.compare(parsedFrom, parsedTo);
 
-        String diff = Formatter.formatWith(compared, format);
-        saveToFile(diff, format);
-
-        return diff;
+        return Formatter.formatWith(compared, format);
     }
 
     private static void saveToFile(String diff, String format) {
