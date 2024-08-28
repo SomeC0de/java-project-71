@@ -6,8 +6,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +36,7 @@ public class Differ {
         return diff;
     }
 
-    private static void saveToFile (String diff, String format) {
+    private static void saveToFile(String diff, String format) {
         String fullName = generateFullName(format);
         File file = new File(fullName);
 
@@ -57,8 +55,7 @@ public class Differ {
         File folderDiff = new File(System.getProperty("user.home") + File.separator + "Differ");
 
         if (!folderDiff.exists()) {
-            if(!folderDiff.mkdir())
-            {
+            if (!folderDiff.mkdir()) {
                 throw new RuntimeException("Error: failed to create output files directory");
             }
         }
@@ -76,7 +73,7 @@ public class Differ {
             case "stylish", "plain" -> fullName.append(String.format("_%s.txt", format));
             case "json" -> fullName.append(".json");
             default -> throw new RuntimeException("Unsupported style type!");
-        };
+        }
 
         return fullName.toString();
     }
