@@ -1,41 +1,33 @@
 package hexlet.code;
 
-import java.io.IOException;
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
+import static hexlet.code.App.DEFAULT_FORMAT;
+
 public class Differ {
-    public static String generate(String pathFrom, String pathTo, String format) {
-        // TBD:
-        String contentFrom = null;
-        try {
-            contentFrom = Extractor.readFile(pathFrom);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        String contentTo = null;
-        try {
-            contentTo = Extractor.readFile(pathTo);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        String typeFrom = Extractor.getFileType(pathFrom);
-        String typeTo = Extractor.getFileType(pathTo);
-
-        Map<String, Object> parsedFrom = Decomposer.parse(contentFrom, typeFrom);
-        Map<String, Object> parsedTo = Decomposer.parse(contentTo, typeTo);
-
-        Map<String, CompareEntity> compared = ContentComparator.compare(parsedFrom, parsedTo);
-
-        return stylish(compared, format);
+    public static String generate(String pathFrom, String pathTo) {
+        return generate(pathFrom, pathTo, DEFAULT_FORMAT);
     }
 
-    public static String stylish(Map<String, CompareEntity> compareResult, String style) {
-        // TBD:
-        return switch (style) {
-            case "stylish" -> StylishFormatter.format(compareResult);
-            default -> throw new RuntimeException("Unsupported style type!");
-        };
+    public static String generate(String pathFrom, String pathTo, String format) {
+        File fileFrom = new File(pathFrom);
+        File fileTo = new File(pathTo);
+
+        String typeFrom =  FilenameUtils.getExtension(pathFrom);
+        String typeTo = FilenameUtils.getExtension(pathTo);
+
+        Map<String, Object> parsedFrom = Parser.parse(fileFrom, typeFrom);
+        Map<String, Object> parsedTo = Parser.parse(fileTo, typeTo);
+
+        List<Map<String, Object>> compared = Comparator.compare(parsedFrom, parsedTo);
+
+        String diff = Formatter.formatWith(compared, format);
+        Report.toFile(diff, format);
+
+        return diff;
     }
 }

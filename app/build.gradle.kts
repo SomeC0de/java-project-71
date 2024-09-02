@@ -1,5 +1,4 @@
 plugins {
-    java
     checkstyle
     application
     jacoco
@@ -23,7 +22,9 @@ dependencies {
     implementation("info.picocli:picocli:4.7.5")
     implementation("info.picocli:picocli-codegen:4.7.5")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.4")
     implementation("commons-io:commons-io:2.7")
+    implementation("org.apache.commons:commons-lang3:3.16.0")
 }
 
 tasks.test {
