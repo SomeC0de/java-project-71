@@ -25,14 +25,14 @@ public class Comparator {
         return keys.stream().map(key -> {
             String s =  key.toString();
             if (from.containsKey(s) && !to.containsKey(s)) {
-                return generateRecord(s, STATUS_DELETED, from.get(key.toString()));
+                return generateRecord(s, RecordStatus.DELETED.name(), from.get(key.toString()));
             } else  if (!from.containsKey(s) && to.containsKey(s)) {
-                return generateRecord(s, STATUS_ADDED, to.get(s));
+                return generateRecord(s, RecordStatus.ADDED.name(), to.get(s));
             } else if (from.containsKey(s) && to.containsKey(s)) {
                 if (Objects.equals(from.get(s), to.get(s))) {
-                    return generateRecord(s, STATUS_UNCHANGED, from.get(s));
+                    return generateRecord(s, RecordStatus.UNCHANGED.name(), from.get(s));
                 } else {
-                    return generateRecord(s, STATUS_CHANGED, from.get(s), to.get(s));
+                    return generateRecord(s, RecordStatus.CHANGED.name(), from.get(s), to.get(s));
                 }
             } else {
                 throw new RuntimeException("Error: Unknown key found!");
@@ -43,9 +43,9 @@ public class Comparator {
     private static Map<String, Object> generateRecord(String key, Object state, Object value) {
         Map<String, Object> record = new LinkedHashMap<String, Object>();
 
-        record.put(KEY_ID_KEY, key);
-        record.put(KEY_ID_STATE, state);
-        record.put(KEY_ID_VALUE, value);
+        record.put(FieldId.KEY.name(), key);
+        record.put(FieldId.STATE.name(), state);
+        record.put(FieldId.VALUE.name(), value);
 
         return record;
     }
@@ -53,10 +53,10 @@ public class Comparator {
     private static Map<String, Object> generateRecord(String key, Object state, Object from, Object to) {
         Map<String, Object> record = new LinkedHashMap<String, Object>();
 
-        record.put(KEY_ID_KEY, key);
-        record.put(KEY_ID_STATE, state);
-        record.put(KEY_ID_FROM, from);
-        record.put(KEY_ID_TO, to);
+        record.put(FieldId.KEY.name(), key);
+        record.put(FieldId.STATE.name(), state);
+        record.put(FieldId.FROM.name(), from);
+        record.put(FieldId.TO.name(),  to);
 
         return record;
     }

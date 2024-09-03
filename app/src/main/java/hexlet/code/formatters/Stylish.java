@@ -1,5 +1,10 @@
 package hexlet.code.formatters;
 
+import hexlet.code.FieldId;
+import hexlet.code.Parser;
+import hexlet.code.RecordStatus;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -21,11 +26,17 @@ public final class Stylish implements Style {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
 
         compared.forEach(value -> {
-            String key = value.get(KEY_ID_KEY).toString();
-            String state = value.get(KEY_ID_STATE).toString();
+            String key = value.get(FieldId.KEY.name()).toString();
+            String state = value.get(FieldId.STATE.name()).toString();
+
+            return Arrays.stream(RecordStatus.values())
+                    .filter(e -> e.name().equals(state))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException(String.format("Unknown record status %s.", state)))
+                    .parse(content);
 
             switch (state) {
-                case STATUS_UNCHANGED -> {
+                case RecordStatus.UNCHANGED.name() -> {
                     String val = makeString(value.get(KEY_ID_VALUE));
                     result.add(String.format("    %s: %s", key, val));
                 }
