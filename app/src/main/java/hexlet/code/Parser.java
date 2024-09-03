@@ -6,7 +6,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Arrays;
@@ -50,7 +49,7 @@ public class Parser {
             }
         };
 
-        abstract public Map<String, Object> parse(File content);
+        public abstract Map<String, Object> parse(File content);
     }
     public static Map<String, Object> parse(File content, String filetype) {
         Objects.requireNonNull(content);
