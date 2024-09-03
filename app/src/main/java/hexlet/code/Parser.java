@@ -6,39 +6,60 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Arrays;
 
 public class Parser {
-    static final String FILETYPE_JSON = "json";
-    static final String FILETYPE_YML = "yml";
-    static final String FILETYPE_YAML = "yaml";
+    private enum Extensions {
+        JSON {
+            @Override
+            public Map<String, Object> parse(File content) {
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    Objects.requireNonNull(mapper);
+                    return mapper.readValue(content, new TypeReference<>() { });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        },
+        YML {
+            @Override
+            public Map<String, Object> parse(File content) {
+                try {
+                    ObjectMapper mapper = new YAMLMapper();
+                    Objects.requireNonNull(mapper);
+                    return mapper.readValue(content, new TypeReference<>() { });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        },
+        YAML {
+            @Override
+            public Map<String, Object> parse(File content) {
+                try {
+                    ObjectMapper mapper = new YAMLMapper();
+                    Objects.requireNonNull(mapper);
+                    return mapper.readValue(content, new TypeReference<>() { });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        abstract public Map<String, Object> parse(File content);
+    }
     public static Map<String, Object> parse(File content, String filetype) {
         Objects.requireNonNull(content);
         Objects.requireNonNull(filetype);
 
-        ObjectMapper mapper;
-
-        switch (filetype.toLowerCase()) {
-            default -> throw new RuntimeException("Unknown filetype!");
-            case FILETYPE_JSON -> {
-                try {
-                    mapper = new ObjectMapper();
-                    Objects.requireNonNull(mapper);
-                    return mapper.readValue(content, new TypeReference<>() { });
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            case FILETYPE_YML, FILETYPE_YAML -> {
-                try {
-                    mapper = new YAMLMapper();
-                    Objects.requireNonNull(mapper);
-                    return mapper.readValue(content, new TypeReference<>() { });
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        return Arrays.stream(Extensions.values())
+                .filter(e -> e.name().equals(filetype.toUpperCase()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(String.format("Unsupported filetype %s.", filetype)))
+                .parse(content);
     }
 }
