@@ -7,20 +7,17 @@ import static hexlet.code.Comparator.*;
 import static hexlet.code.Comparator.KEY_ID_STATE;
 
 public enum RecordStatus {
+    // TBD: make array of function pointers here
     UNCHANGED {
-        public String buildStylish(Map<Object, String> input)
-        {
-            String key = input.get(FieldId.KEY.name()).toString();
+        public String buildStylish(Map<Object, String> input) {
+            String key = input.get(FieldId.KEY.name());
             var value = input.get(FieldId.VALUE.name());
             String val = RecordStyle.STYLISH.makeString(value);
 
             return String.format("    %s: %s", key, val);
         }
-        public String buildPlain(Map<Object, String> input)
-        {
 
-            return "";
-        }
+        public String buildPlain(Map<Object, String> input) { return ""; }
         public String buildJson(Map<Object, String> input)
         {
             return "";
@@ -31,7 +28,7 @@ public enum RecordStatus {
         {
             StringJoiner result = new StringJoiner("/n");
 
-            String key = input.get(FieldId.KEY.name()).toString();
+            String key = input.get(FieldId.KEY.name());
             var value = input.get(FieldId.FROM.name());
             String from = RecordStyle.STYLISH.makeString(value);
             result.add(String.format("  - %s: %s", key, from));
@@ -46,7 +43,7 @@ public enum RecordStatus {
         {
             StringJoiner result = new StringJoiner("/n");
 
-            String key = input.get(FieldId.KEY.name()).toString();
+            String key = input.get(FieldId.KEY.name());
             var value = input.get(FieldId.FROM.name());
             String from = RecordStyle.STYLISH.makeString(value);
             result.add(String.format("  - %s: %s", key, from));
@@ -66,15 +63,21 @@ public enum RecordStatus {
     ADDED {
         public String buildStylish(Map<Object, String> input)
         {
-            String key = input.get(FieldId.KEY.name()).toString();
+            String key = input.get(FieldId.KEY.name());
             var value = input.get(FieldId.VALUE.name());
             String val = RecordStyle.STYLISH.makeString(value);
 
-            return String.format("    %s: %s", key, val);
+            return String.format("  + %s: %s", key, val);
         }
+
         public String buildPlain(Map<Object, String> input)
         {
-            return "";
+
+            String key = input.get(FieldId.KEY.name());
+            var value = input.get(FieldId.VALUE.name());
+            String val = RecordStyle.STYLISH.makeString(value);
+
+            return String.format("Property '%s' was added with value: %s", key, val);
         }
         public String buildJson(Map<Object, String> input)
         {
@@ -84,12 +87,19 @@ public enum RecordStatus {
     DELETED {
         public String buildStylish(Map<Object, String> input)
         {
-            return "";
+            String key = input.get(FieldId.KEY.name());
+            var value = input.get(FieldId.VALUE.name());
+            String val = RecordStyle.STYLISH.makeString(value);
+
+            return String.format("  - %s: %s", key, val);
         }
+
         public String buildPlain(Map<Object, String> input)
         {
-            return "";
+            String key = input.get(FieldId.KEY.name());
+            return String.format("Property '%s' was removed", key);
         }
+
         public String buildJson(Map<Object, String> input)
         {
             return "";
