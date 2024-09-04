@@ -25,14 +25,14 @@ public class Comparator {
         return keys.stream().map(key -> {
             String s =  key.toString();
             if (from.containsKey(s) && !to.containsKey(s)) {
-                return generateRecord(s, RecordStatus.DELETED.name(), from.get(key.toString()));
+                return generateRecord(s, RecordStatus.DELETED, from.get(key.toString()));
             } else  if (!from.containsKey(s) && to.containsKey(s)) {
-                return generateRecord(s, RecordStatus.ADDED.name(), to.get(s));
+                return generateRecord(s, RecordStatus.ADDED, to.get(s));
             } else if (from.containsKey(s) && to.containsKey(s)) {
                 if (Objects.equals(from.get(s), to.get(s))) {
-                    return generateRecord(s, RecordStatus.UNCHANGED.name(), from.get(s));
+                    return generateRecord(s, RecordStatus.UNCHANGED, from.get(s));
                 } else {
-                    return generateRecord(s, RecordStatus.CHANGED.name(), from.get(s), to.get(s));
+                    return generateRecord(s, RecordStatus.CHANGED, from.get(s), to.get(s));
                 }
             } else {
                 throw new RuntimeException("Error: Unknown key found!");

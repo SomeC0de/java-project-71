@@ -29,14 +29,8 @@ public final class Stylish implements Style {
             String key = value.get(FieldId.KEY.name()).toString();
             String state = value.get(FieldId.STATE.name()).toString();
 
-            return Arrays.stream(RecordStatus.values())
-                    .filter(e -> e.name().equals(state))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalStateException(String.format("Unknown record status %s.", state)))
-                    .parse(content);
-
             switch (state) {
-                case RecordStatus.UNCHANGED.name() -> {
+                case STATUS_UNCHANGED -> {
                     String val = makeString(value.get(KEY_ID_VALUE));
                     result.add(String.format("    %s: %s", key, val));
                 }
