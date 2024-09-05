@@ -1,65 +1,51 @@
 package hexlet.code.formatters;
 
-import hexlet.code.FieldId;
-import hexlet.code.Parser;
-import hexlet.code.RecordStatus;
-
-import java.util.Arrays;
-import java.util.List;
+import hexlet.code.*;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import static hexlet.code.Comparator.STATUS_UNCHANGED;
-import static hexlet.code.Comparator.STATUS_CHANGED;
-import static hexlet.code.Comparator.STATUS_ADDED;
-import static hexlet.code.Comparator.STATUS_DELETED;
-
-import static hexlet.code.Comparator.KEY_ID_KEY;
-import static hexlet.code.Comparator.KEY_ID_STATE;
-import static hexlet.code.Comparator.KEY_ID_VALUE;
-import static hexlet.code.Comparator.KEY_ID_FROM;
-import static hexlet.code.Comparator.KEY_ID_TO;
-
-public final class Stylish implements Style {
+public final class Stylish implements RecordGenerator {
     @Override
-    public String format(List<Map<String, Object>> compared) {
-        final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
+    public String generateUnchanged(Map<Object, String> input) {
+        String key = input.get(FieldId.KEY.name());
+        var value = input.get(FieldId.VALUE.name());
+        String val = RecordStyle.STYLISH.makeString(value);
 
-        compared.forEach(value -> {
-            String key = value.get(FieldId.KEY.name()).toString();
-            String state = value.get(FieldId.STATE.name()).toString();
+        return String.format("    %s: %s", key, val);
+    }
 
-            switch (state) {
-                case STATUS_UNCHANGED -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("    %s: %s", key, val));
-                }
-                case STATUS_CHANGED -> {
-                    String from = makeString(value.get(KEY_ID_FROM));
-                    String to = makeString(value.get(KEY_ID_TO));
-                    result.add(String.format("  - %s: %s", key, from));
-                    result.add(String.format("  + %s: %s", key, to));
-                }
-                case STATUS_ADDED -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("  + %s: %s", key, val));
-                }
-                case STATUS_DELETED -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("  - %s: %s", key, val));
-                }
-                default -> throw new RuntimeException("Unknown record state!");
-            }
-        });
+    @Override
+    public String generateChanged(Map<Object, String> input) {
+        StringJoiner result = new StringJoiner("/n");
+
+        String key = input.get(FieldId.KEY.name());
+        var value = input.get(FieldId.FROM.name());
+        String from = RecordStyle.STYLISH.makeString(value);
+        result.add(String.format("  - %s: %s", key, from));
+
+        value = input.get(FieldId.TO.name());
+        String to = RecordStyle.STYLISH.makeString(value);
+        result.add(String.format("  + %s: %s", key, to));
 
         return result.toString();
     }
 
-    private static String makeString(Object obj) {
-        if (null == obj) {
-            return "null";
-        } else {
-            return String.format("%s", obj);
-        }
+    @Override
+    public String generateAdded(Map<Object, String> input) {
+        String key = input.get(FieldId.KEY.name());
+        var value = input.get(FieldId.VALUE.name());
+        String val = RecordStyle.STYLISH.makeString(value);
+
+        return String.format("  + %s: %s", key, val);
+    }
+
+    @Override
+    public String generateDeleted(Map<Object, String> input)
+    {
+        String key = input.get(FieldId.KEY.name());
+        var value = input.get(FieldId.VALUE.name());
+        String val = RecordStyle.STYLISH.makeString(value);
+
+        return String.format("  - %s: %s", key, val);
     }
 }

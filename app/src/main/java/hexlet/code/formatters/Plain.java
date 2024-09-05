@@ -1,65 +1,46 @@
 package hexlet.code.formatters;
 
-import org.apache.commons.lang3.ClassUtils;
+import hexlet.code.FieldId;
+import hexlet.code.RecordGenerator;
+import hexlet.code.RecordStyle;
 
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-
-import static hexlet.code.Comparator.STATUS_UNCHANGED;
-import static hexlet.code.Comparator.STATUS_CHANGED;
-import static hexlet.code.Comparator.STATUS_ADDED;
-import static hexlet.code.Comparator.STATUS_DELETED;
-
-import static hexlet.code.Comparator.KEY_ID_KEY;
-import static hexlet.code.Comparator.KEY_ID_STATE;
-import static hexlet.code.Comparator.KEY_ID_VALUE;
-import static hexlet.code.Comparator.KEY_ID_FROM;
-import static hexlet.code.Comparator.KEY_ID_TO;
-public final class Plain implements Style {
+public final class Plain implements RecordGenerator {
     @Override
-    public String format(List<Map<String, Object>> compared) {
-        final StringJoiner result = new StringJoiner("\n");
+    public String generateUnchanged(Map<Object, String> input) { return""; }
 
-        compared.forEach(value -> {
-            String key = value.get(KEY_ID_KEY).toString();
-            String state = value.get(KEY_ID_STATE).toString();
+    @Override
+    public String generateChanged(Map<Object, String> input) {
+        StringJoiner result = new StringJoiner("/n");
 
-            switch (state) {
-                case STATUS_UNCHANGED -> {
-                }
-                case STATUS_CHANGED -> {
-                    String from = makeString(value.get(KEY_ID_FROM));
-                    String to = makeString(value.get(KEY_ID_TO));
-                    result.add(String.format("Property '%s' was updated. From %s to %s", key, from, to));
-                }
-                case STATUS_ADDED  -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("Property '%s' was added with value: %s", key, val));
-                }
-                case STATUS_DELETED -> {
-                    result.add(String.format("Property '%s' was removed", key));
-                }
-                default -> throw new RuntimeException("Unknown record state!");
-            }
-        });
+        String key = input.get(FieldId.KEY.name());
+        var value = input.get(FieldId.FROM.name());
+        String from = RecordStyle.STYLISH.makeString(value);
+        result.add(String.format("  - %s: %s", key, from));
 
+        value = input.get(FieldId.TO.name());
+        String to = RecordStyle.STYLISH.makeString(value);
+        result.add(String.format("  + %s: %s", key, to));
+
+        result.add(String.format("Property '%s' was updated. From %s to %s", key, from, to));
         return result.toString();
     }
 
-    private static String makeString(Object obj) {
-        if (null == obj) {
-            return "null";
-        }
+    @Override
+    public String generateAdded(Map<Object, String> input) {
+        String key = input.get(FieldId.KEY.name());
+        var value = input.get(FieldId.VALUE.name());
+        String val = RecordStyle.STYLISH.makeString(value);
 
-        if (obj instanceof String) {
-            return String.format("'%s'", obj);
-        }
+        return String.format("Property '%s' was added with value: %s", key, val);
+    }
 
-        if (ClassUtils.isPrimitiveOrWrapper(obj.getClass())) {
-            return obj.toString();
-        } else {
-            return "[complex value]";
-        }
+    @Override
+    public String generateDeleted(Map<Object, String> input)
+    {
+        String key = input.get(FieldId.KEY.name());
+        return String.format("Property '%s' was removed", key);
     }
 }
