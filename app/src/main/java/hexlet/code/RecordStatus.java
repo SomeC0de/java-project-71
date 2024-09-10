@@ -10,10 +10,4 @@ public enum RecordStatus {
     ADDED,
     DELETED,
     LIMIT;
-
-    private interface PseudoPointer {
-        String generate(List<Map<String, Object>> input, RecordStyle style);
-    }
-
-    PseudoPointer[] functionPointersArray = new PseudoPointer[3];
 }

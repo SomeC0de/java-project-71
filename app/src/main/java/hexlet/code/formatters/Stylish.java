@@ -1,5 +1,7 @@
 package hexlet.code.formatters;
 
+import hexlet.code.RecordGenerator;
+
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -56,5 +58,31 @@ public final class Stylish implements Style {
         } else {
             return String.format("%s", obj);
         }
+    }
+
+    public String generateChanged(Map<String, Object> record) {
+        StringBuilder report = new StringBuilder();
+
+        String key = record.get(KEY_ID_KEY).toString();
+        String state = record.get(KEY_ID_STATE).toString();
+        String from = makeString(record.get(KEY_ID_FROM));
+        String to = makeString(record.get(KEY_ID_TO));
+
+        report.append(String.format("  - %s: %s\n", key, from));
+        report.append(String.format("  + %s: %s", key, to));
+
+        return report.toString();
+    }
+
+    public static String generateUnchanged(Map<String, Object> record) {
+        return "";
+    }
+
+    public String generateAdded(Map<String, Object> record) {
+        return "";
+    }
+
+    public String generateDeleted(Map<String, Object> record) {
+        return "";
     }
 }
