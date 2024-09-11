@@ -17,7 +17,7 @@ import static hexlet.code.Comparator.KEY_ID_VALUE;
 import static hexlet.code.Comparator.KEY_ID_FROM;
 import static hexlet.code.Comparator.KEY_ID_TO;
 
-public final class Stylish implements Style {
+public final class Stylish implements Style, RecordGenerator {
     @Override
     public String format(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
@@ -60,7 +60,7 @@ public final class Stylish implements Style {
         }
     }
 
-    public String generateChanged(Map<String, Object> record) {
+    public static String generateChanged(Map<String, Object> record) {
         StringBuilder report = new StringBuilder();
 
         String key = record.get(KEY_ID_KEY).toString();
@@ -74,15 +74,7 @@ public final class Stylish implements Style {
         return report.toString();
     }
 
-    public static String generateUnchanged(Map<String, Object> record) {
-        return "";
-    }
-
-    public String generateAdded(Map<String, Object> record) {
-        return "";
-    }
-
-    public String generateDeleted(Map<String, Object> record) {
+    public String generateUnchanged(Map<String, Object> record) {
         return "";
     }
 }

@@ -2,7 +2,7 @@ package hexlet.code;
 
 import java.util.List;
 import java.util.Map;
-
+@FunctionalInterface
 public interface RecordGenerator {
-    String generate(Map<String, Object> input);
+    String generateUnchanged(Map<String, Object> input);
 }
