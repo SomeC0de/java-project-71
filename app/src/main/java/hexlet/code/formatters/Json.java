@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class Json implements Style {
     @Override
-    public String format(List<Map<String, Object>> compared) {
+    public String apply(List<Map<String, Object>> compared) {
         ObjectMapper om = new ObjectMapper();
         try {
             return om.writerWithDefaultPrettyPrinter().writeValueAsString(compared);

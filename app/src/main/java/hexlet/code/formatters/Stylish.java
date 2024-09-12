@@ -17,7 +17,7 @@ import static hexlet.code.Comparator.KEY_ID_TO;
 
 public final class Stylish implements Style {
     @Override
-    public String format(List<Map<String, Object>> compared) {
+    public String apply(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
 
         compared.forEach(value -> {

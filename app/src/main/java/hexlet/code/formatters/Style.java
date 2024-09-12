@@ -5,5 +5,5 @@ import java.util.Map;
 
 @FunctionalInterface
 public interface Style {
-    String format(List<Map<String, Object>> compared);
+    String apply(List<Map<String, Object>> compared);
 }
