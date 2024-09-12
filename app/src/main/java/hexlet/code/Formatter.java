@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class Formatter {
     public static String formatWith(List<Map<String, Object>> compareResult, Style formater) {
+        // TBD: add here exception for non-null formatter value; possibly replace here formatter extraction
         return formater.apply(compareResult);
     }
 }
