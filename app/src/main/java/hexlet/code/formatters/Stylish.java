@@ -15,7 +15,7 @@ import static hexlet.code.Comparator.KEY_ID_VALUE;
 import static hexlet.code.Comparator.KEY_ID_FROM;
 import static hexlet.code.Comparator.KEY_ID_TO;
 
-public final class Stylish implements Style {
+public final class Stylish implements Style, Status {
     @Override
     public String apply(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
@@ -56,5 +56,25 @@ public final class Stylish implements Style {
         } else {
             return String.format("%s", obj);
         }
+    }
+
+    @Override
+    public String buildUnchanged(Map<String, Object> record) {
+        return "";
+    }
+
+    @Override
+    public String buildChanged(Map<String, Object> record) {
+        return "";
+    }
+
+    @Override
+    public String buildAdded(Map<String, Object> record) {
+        return "";
+    }
+
+    @Override
+    public String buildDeleted(Map<String, Object> record) {
+        return "";
     }
 }
