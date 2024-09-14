@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import hexlet.code.formatters.FormatStyles;
+import hexlet.code.formatters.RecordStyle;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -26,7 +26,7 @@ public class Differ {
 
         List<Map<String, Object>> compared = Comparator.compare(parsedFrom, parsedTo);
 
-        String diff = Formatter.formatWith(compared, FormatStyles.getFormater(format));
+        String diff = Formatter.formatWith(compared, RecordStyle.getFormater(format));
         Report.toFile(diff, format);
 
         return diff;

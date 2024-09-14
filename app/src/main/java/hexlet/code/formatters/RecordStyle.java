@@ -1,17 +1,17 @@
 package hexlet.code.formatters;
 
-public enum FormatStyles {
+public enum RecordStyle {
     STYLISH(new Stylish()::apply),
     PLAIN(new Plain()::apply),
     JSON(new Json()::apply);
 
     final Style formatter;
 
-    FormatStyles(Style style) {
+    RecordStyle(Style style) {
         this.formatter = style;
     }
 
     public static Style getFormater(String format) {
-        return FormatStyles.valueOf(format.toUpperCase()).formatter;
+        return RecordStyle.valueOf(format.toUpperCase()).formatter;
     }
 }
