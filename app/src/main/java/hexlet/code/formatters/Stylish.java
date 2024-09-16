@@ -1,5 +1,8 @@
 package hexlet.code.formatters;
 
+import hexlet.code.formatters.builders.Status;
+import hexlet.code.formatters.builders.StringMaker;
+
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -15,7 +18,7 @@ import static hexlet.code.Comparator.KEY_ID_VALUE;
 import static hexlet.code.Comparator.KEY_ID_FROM;
 import static hexlet.code.Comparator.KEY_ID_TO;
 
-public final class Stylish implements Style, Status {
+public final class Stylish implements Style, StringMaker {
     @Override
     public String apply(List<Map<String, Object>> compared) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
@@ -50,7 +53,7 @@ public final class Stylish implements Style, Status {
         return result.toString();
     }
 
-    private static String makeString(Object obj) {
+    private String makeString(Object obj) {
         if (null == obj) {
             return "null";
         } else {
@@ -58,23 +61,9 @@ public final class Stylish implements Style, Status {
         }
     }
 
-    @Override
-    public String buildUnchanged(Map<String, Object> record) {
-        return "";
-    }
+    public Status[] builders = new Status[RecordStatus.DELETED.ordinal() + 1];
 
-    @Override
-    public String buildChanged(Map<String, Object> record) {
-        return "";
-    }
-
-    @Override
-    public String buildAdded(Map<String, Object> record) {
-        return "";
-    }
-
-    @Override
-    public String buildDeleted(Map<String, Object> record) {
-        return "";
+    public Stylish() {
+        builders[RecordStatus.UNCHANGED.ordinal()] = this::buildUnchanged;
     }
 }
