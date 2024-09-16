@@ -4,5 +4,6 @@ public enum RecordStatus {
     UNCHANGED,
     CHANGED,
     ADDED,
-    DELETED;
+    DELETED,
+    LIMIT;
 }

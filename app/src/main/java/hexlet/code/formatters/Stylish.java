@@ -1,56 +1,21 @@
 package hexlet.code.formatters;
 
-import hexlet.code.formatters.builders.Status;
-import hexlet.code.formatters.builders.StringMaker;
+import hexlet.code.builders.Common;
+import hexlet.code.builders.RecordMaker;
 
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import static hexlet.code.Comparator.STATUS_UNCHANGED;
-import static hexlet.code.Comparator.STATUS_CHANGED;
-import static hexlet.code.Comparator.STATUS_ADDED;
-import static hexlet.code.Comparator.STATUS_DELETED;
-
 import static hexlet.code.Comparator.KEY_ID_KEY;
-import static hexlet.code.Comparator.KEY_ID_STATE;
 import static hexlet.code.Comparator.KEY_ID_VALUE;
 import static hexlet.code.Comparator.KEY_ID_FROM;
 import static hexlet.code.Comparator.KEY_ID_TO;
 
-public final class Stylish implements Style, StringMaker {
+public final class Stylish implements Style {
     @Override
     public String apply(List<Map<String, Object>> compared) {
-        final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
-
-        compared.forEach(value -> {
-            String key = value.get(KEY_ID_KEY).toString();
-            String state = value.get(KEY_ID_STATE).toString();
-
-            switch (state) {
-                case STATUS_UNCHANGED -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("    %s: %s", key, val));
-                }
-                case STATUS_CHANGED -> {
-                    String from = makeString(value.get(KEY_ID_FROM));
-                    String to = makeString(value.get(KEY_ID_TO));
-                    result.add(String.format("  - %s: %s", key, from));
-                    result.add(String.format("  + %s: %s", key, to));
-                }
-                case STATUS_ADDED -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("  + %s: %s", key, val));
-                }
-                case STATUS_DELETED -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("  - %s: %s", key, val));
-                }
-                default -> throw new RuntimeException("Unknown record state!");
-            }
-        });
-
-        return result.toString();
+        return Common.build(compared, builders);
     }
 
     private String makeString(Object obj) {
@@ -61,9 +26,45 @@ public final class Stylish implements Style, StringMaker {
         }
     }
 
-    public Status[] builders = new Status[RecordStatus.DELETED.ordinal() + 1];
+    String buildUnchanged(Map<String, Object> record) {
+        String key = record.get(KEY_ID_KEY).toString();
+        String val = makeString(record.get(KEY_ID_VALUE));
+
+        return String.format("    %s: %s", key, val);
+    }
+
+    String buildChanged(Map<String, Object> record) {
+        StringJoiner result = new StringJoiner("\n");
+
+        String key = record.get(KEY_ID_KEY).toString();
+        String from = makeString(record.get(KEY_ID_FROM));
+        String to = makeString(record.get(KEY_ID_TO));
+        result.add(String.format("  - %s: %s", key, from));
+        result.add(String.format("  + %s: %s", key, to));
+
+        return result.toString();
+    }
+
+    String buildAdded(Map<String, Object> record) {
+        String key = record.get(KEY_ID_KEY).toString();
+        String val = makeString(record.get(KEY_ID_VALUE));
+
+        return String.format("  + %s: %s", key, val);
+    }
+
+    String buildDeleted(Map<String, Object> record) {
+        String key = record.get(KEY_ID_KEY).toString();
+        String val = makeString(record.get(KEY_ID_VALUE));
+
+        return String.format("  - %s: %s", key, val);
+    }
+
+    public RecordMaker[] builders = new RecordMaker[RecordStatus.LIMIT.ordinal()];
 
     public Stylish() {
         builders[RecordStatus.UNCHANGED.ordinal()] = this::buildUnchanged;
+        builders[RecordStatus.CHANGED.ordinal()] = this::buildChanged;
+        builders[RecordStatus.ADDED.ordinal()] = this::buildAdded;
+        builders[RecordStatus.DELETED.ordinal()] = this::buildDeleted;
     }
 }
