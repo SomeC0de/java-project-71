@@ -1,6 +1,7 @@
 package hexlet.code.formatters;
 
-import hexlet.code.builders.Common;
+import hexlet.code.RecordStatus;
+import hexlet.code.builders.CommonBuilder;
 import hexlet.code.builders.RecordMaker;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import static hexlet.code.Comparator.KEY_ID_TO;
 public final class Stylish implements Style {
     @Override
     public String apply(List<Map<String, Object>> compared) {
-        return Common.build(compared, builders);
+        return CommonBuilder.build(compared, builders);
     }
 
     private String makeString(Object obj) {

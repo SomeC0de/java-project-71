@@ -1,4 +1,4 @@
-package hexlet.code.formatters;
+package hexlet.code;
 
 public enum RecordStatus {
     UNCHANGED,

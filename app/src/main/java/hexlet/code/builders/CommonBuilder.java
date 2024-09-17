@@ -1,6 +1,6 @@
 package hexlet.code.builders;
 
-import hexlet.code.formatters.RecordStatus;
+import hexlet.code.RecordStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 
 import static hexlet.code.Comparator.*;
 
-public class Common {
+public class CommonBuilder {
     public static String build(List<Map<String, Object>> records, RecordMaker[] generators) {
         final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
 

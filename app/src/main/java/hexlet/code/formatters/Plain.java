@@ -1,50 +1,22 @@
 package hexlet.code.formatters;
 
+import hexlet.code.RecordStatus;
+import hexlet.code.builders.CommonBuilder;
+import hexlet.code.builders.RecordMaker;
 import org.apache.commons.lang3.ClassUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
-
-import static hexlet.code.Comparator.STATUS_UNCHANGED;
-import static hexlet.code.Comparator.STATUS_CHANGED;
-import static hexlet.code.Comparator.STATUS_ADDED;
-import static hexlet.code.Comparator.STATUS_DELETED;
 
 import static hexlet.code.Comparator.KEY_ID_KEY;
-import static hexlet.code.Comparator.KEY_ID_STATE;
 import static hexlet.code.Comparator.KEY_ID_VALUE;
 import static hexlet.code.Comparator.KEY_ID_FROM;
 import static hexlet.code.Comparator.KEY_ID_TO;
+
 public final class Plain implements Style {
     @Override
     public String apply(List<Map<String, Object>> compared) {
-        final StringJoiner result = new StringJoiner("\n");
-
-        compared.forEach(value -> {
-            String key = value.get(KEY_ID_KEY).toString();
-            String state = value.get(KEY_ID_STATE).toString();
-
-            switch (state) {
-                case STATUS_UNCHANGED -> {
-                }
-                case STATUS_CHANGED -> {
-                    String from = makeString(value.get(KEY_ID_FROM));
-                    String to = makeString(value.get(KEY_ID_TO));
-                    result.add(String.format("Property '%s' was updated. From %s to %s", key, from, to));
-                }
-                case STATUS_ADDED  -> {
-                    String val = makeString(value.get(KEY_ID_VALUE));
-                    result.add(String.format("Property '%s' was added with value: %s", key, val));
-                }
-                case STATUS_DELETED -> {
-                    result.add(String.format("Property '%s' was removed", key));
-                }
-                default -> throw new RuntimeException("Unknown record state!");
-            }
-        });
-
-        return result.toString();
+        return CommonBuilder.build(compared, builders);
     }
 
     private static String makeString(Object obj) {
@@ -61,5 +33,38 @@ public final class Plain implements Style {
         } else {
             return "[complex value]";
         }
+    }
+
+    String buildUnchanged(Map<String, Object> record) {
+        return "";
+    }
+
+    String buildChanged(Map<String, Object> record) {
+        String key = record.get(KEY_ID_KEY).toString();
+        String from = makeString(record.get(KEY_ID_FROM));
+        String to = makeString(record.get(KEY_ID_TO));
+
+        return String.format("Property '%s' was updated. From %s to %s", key, from, to);
+    }
+
+    String buildAdded(Map<String, Object> record) {
+        String key = record.get(KEY_ID_KEY).toString();
+        String val = makeString(record.get(KEY_ID_VALUE));
+
+        return String.format("Property '%s' was added with value: %s", key, val);
+    }
+
+    String buildDeleted(Map<String, Object> record) {
+        String key = record.get(KEY_ID_KEY).toString();
+        return String.format("Property '%s' was removed", key);
+    }
+
+    public RecordMaker[] builders = new RecordMaker[RecordStatus.LIMIT.ordinal()];
+
+    public Plain() {
+        builders[RecordStatus.UNCHANGED.ordinal()] = this::buildUnchanged;
+        builders[RecordStatus.CHANGED.ordinal()] = this::buildChanged;
+        builders[RecordStatus.ADDED.ordinal()] = this::buildAdded;
+        builders[RecordStatus.DELETED.ordinal()] = this::buildDeleted;
     }
 }
