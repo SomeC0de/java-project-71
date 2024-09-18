@@ -15,7 +15,9 @@ public class CommonBuilder {
         records.forEach(value -> {
             String status = value.get(KEY_ID_STATE).toString().toUpperCase();
             String s = generators[RecordStatus.valueOf(status).ordinal()].generate(value);
-            result.add(s);
+            if (!s.equals("")) {
+                result.add(s);
+            }
         });
 
         return result.toString();
