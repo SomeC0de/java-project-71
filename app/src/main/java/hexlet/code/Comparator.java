@@ -8,10 +8,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Comparator {
-    public static final String STATUS_UNCHANGED = "unchanged";
-    public static final String STATUS_CHANGED = "changed";
-    public static final String STATUS_ADDED = "added";
-    public static final String STATUS_DELETED = "deleted";
     public static final String KEY_ID_KEY = "key";
     public static final String KEY_ID_STATE = "state";
     public static final String KEY_ID_VALUE = "value";
@@ -25,14 +21,14 @@ public class Comparator {
         return keys.stream().map(key -> {
             String s =  key.toString();
             if (from.containsKey(s) && !to.containsKey(s)) {
-                return generateRecord(s, STATUS_DELETED, from.get(key.toString()));
+                return generateRecord(s, RecordStatus.DELETED, from.get(key.toString()));
             } else  if (!from.containsKey(s) && to.containsKey(s)) {
-                return generateRecord(s, STATUS_ADDED, to.get(s));
+                return generateRecord(s, RecordStatus.ADDED, to.get(s));
             } else if (from.containsKey(s) && to.containsKey(s)) {
                 if (Objects.equals(from.get(s), to.get(s))) {
-                    return generateRecord(s, STATUS_UNCHANGED, from.get(s));
+                    return generateRecord(s, RecordStatus.UNCHANGED, from.get(s));
                 } else {
-                    return generateRecord(s, STATUS_CHANGED, from.get(s), to.get(s));
+                    return generateRecord(s, RecordStatus.CHANGED, from.get(s), to.get(s));
                 }
             } else {
                 throw new RuntimeException("Error: Unknown key found!");

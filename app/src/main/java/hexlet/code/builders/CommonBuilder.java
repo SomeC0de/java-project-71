@@ -13,8 +13,8 @@ public class CommonBuilder {
         final StringJoiner result = template;
 
         records.forEach(value -> {
-            String status = value.get(KEY_ID_STATE).toString().toUpperCase();
-            String s = generators[RecordStatus.valueOf(status).ordinal()].generate(value);
+            RecordStatus status = (RecordStatus) value.get(KEY_ID_STATE);
+            String s = generators[status.ordinal()].generate(value);
             if (!s.equals("")) {
                 result.add(s);
             }
