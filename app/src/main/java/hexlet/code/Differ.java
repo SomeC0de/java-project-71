@@ -26,9 +26,6 @@ public class Differ {
 
         List<Map<String, Object>> compared = Comparator.compare(parsedFrom, parsedTo);
 
-        String diff = Formatter.formatWith(compared, RecordStyle.getFormater(format));
-        Report.toFile(diff, format);
-
-        return diff;
+        return Formatter.formatWith(compared, RecordStyle.getFormater(format));
     }
 }
