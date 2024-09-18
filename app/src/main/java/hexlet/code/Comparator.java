@@ -8,11 +8,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Comparator {
-    public static final String KEY_ID_KEY = "key";
-    public static final String KEY_ID_STATE = "state";
-    public static final String KEY_ID_VALUE = "value";
-    public static final String KEY_ID_FROM = "from";
-    public static final String KEY_ID_TO = "to";
     public static List<Map<String, Object>> compare(Map<String, Object> from, Map<String, Object> to) {
         var keys = new TreeSet<>();
         keys.addAll(from.keySet());
@@ -39,9 +34,9 @@ public class Comparator {
     private static Map<String, Object> generateRecord(String key, Object state, Object value) {
         Map<String, Object> record = new LinkedHashMap<String, Object>();
 
-        record.put(KEY_ID_KEY, key);
-        record.put(KEY_ID_STATE, state);
-        record.put(KEY_ID_VALUE, value);
+        record.put(RecordKey.KEY.name(), key);
+        record.put(RecordKey.STATE.name(), state);
+        record.put(RecordKey.VALUE.name(), value);
 
         return record;
     }
@@ -49,10 +44,10 @@ public class Comparator {
     private static Map<String, Object> generateRecord(String key, Object state, Object from, Object to) {
         Map<String, Object> record = new LinkedHashMap<String, Object>();
 
-        record.put(KEY_ID_KEY, key);
-        record.put(KEY_ID_STATE, state);
-        record.put(KEY_ID_FROM, from);
-        record.put(KEY_ID_TO, to);
+        record.put(RecordKey.KEY.name(), key);
+        record.put(RecordKey.STATE.name(), state);
+        record.put(RecordKey.FROM.name(), from);
+        record.put(RecordKey.TO.name(), to);
 
         return record;
     }

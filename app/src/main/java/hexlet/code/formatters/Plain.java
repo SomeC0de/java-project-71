@@ -1,5 +1,6 @@
 package hexlet.code.formatters;
 
+import hexlet.code.RecordKey;
 import hexlet.code.RecordStatus;
 import hexlet.code.builders.CommonBuilder;
 import hexlet.code.builders.RecordMaker;
@@ -8,11 +9,6 @@ import org.apache.commons.lang3.ClassUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-
-import static hexlet.code.Comparator.KEY_ID_KEY;
-import static hexlet.code.Comparator.KEY_ID_VALUE;
-import static hexlet.code.Comparator.KEY_ID_FROM;
-import static hexlet.code.Comparator.KEY_ID_TO;
 
 public final class Plain implements Style {
     @Override
@@ -41,22 +37,22 @@ public final class Plain implements Style {
     }
 
     String buildChanged(Map<String, Object> record) {
-        String key = record.get(KEY_ID_KEY).toString();
-        String from = makeString(record.get(KEY_ID_FROM));
-        String to = makeString(record.get(KEY_ID_TO));
+        String key = record.get(RecordKey.KEY.name()).toString();
+        String from = makeString(record.get(RecordKey.FROM.name()));
+        String to = makeString(record.get(RecordKey.TO.name()));
 
         return String.format("Property '%s' was updated. From %s to %s", key, from, to);
     }
 
     String buildAdded(Map<String, Object> record) {
-        String key = record.get(KEY_ID_KEY).toString();
-        String val = makeString(record.get(KEY_ID_VALUE));
+        String key = record.get(RecordKey.KEY.name()).toString();
+        String val = makeString(record.get(RecordKey.VALUE.name()));
 
         return String.format("Property '%s' was added with value: %s", key, val);
     }
 
     String buildDeleted(Map<String, Object> record) {
-        String key = record.get(KEY_ID_KEY).toString();
+        String key = record.get(RecordKey.KEY.name()).toString();
         return String.format("Property '%s' was removed", key);
     }
 

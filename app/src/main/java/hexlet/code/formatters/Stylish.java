@@ -1,5 +1,6 @@
 package hexlet.code.formatters;
 
+import hexlet.code.RecordKey;
 import hexlet.code.RecordStatus;
 import hexlet.code.builders.CommonBuilder;
 import hexlet.code.builders.RecordMaker;
@@ -7,11 +8,6 @@ import hexlet.code.builders.RecordMaker;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-
-import static hexlet.code.Comparator.KEY_ID_KEY;
-import static hexlet.code.Comparator.KEY_ID_VALUE;
-import static hexlet.code.Comparator.KEY_ID_FROM;
-import static hexlet.code.Comparator.KEY_ID_TO;
 
 public final class Stylish implements Style {
     @Override
@@ -28,8 +24,8 @@ public final class Stylish implements Style {
     }
 
     String buildUnchanged(Map<String, Object> record) {
-        String key = record.get(KEY_ID_KEY).toString();
-        String val = makeString(record.get(KEY_ID_VALUE));
+        String key = record.get(RecordKey.KEY.name()).toString();
+        String val = makeString(record.get(RecordKey.VALUE.name()));
 
         return String.format("    %s: %s", key, val);
     }
@@ -37,9 +33,9 @@ public final class Stylish implements Style {
     String buildChanged(Map<String, Object> record) {
         StringJoiner result = new StringJoiner("\n");
 
-        String key = record.get(KEY_ID_KEY).toString();
-        String from = makeString(record.get(KEY_ID_FROM));
-        String to = makeString(record.get(KEY_ID_TO));
+        String key = record.get(RecordKey.KEY.name()).toString();
+        String from = makeString(record.get(RecordKey.FROM.name()));
+        String to = makeString(record.get(RecordKey.TO.name()));
         result.add(String.format("  - %s: %s", key, from));
         result.add(String.format("  + %s: %s", key, to));
 
@@ -47,15 +43,15 @@ public final class Stylish implements Style {
     }
 
     String buildAdded(Map<String, Object> record) {
-        String key = record.get(KEY_ID_KEY).toString();
-        String val = makeString(record.get(KEY_ID_VALUE));
+        String key = record.get(RecordKey.KEY.name()).toString();
+        String val = makeString(record.get(RecordKey.VALUE.name()));
 
         return String.format("  + %s: %s", key, val);
     }
 
     String buildDeleted(Map<String, Object> record) {
-        String key = record.get(KEY_ID_KEY).toString();
-        String val = makeString(record.get(KEY_ID_VALUE));
+        String key = record.get(RecordKey.KEY.name()).toString();
+        String val = makeString(record.get(RecordKey.VALUE.name()));
 
         return String.format("  - %s: %s", key, val);
     }

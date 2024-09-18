@@ -1,5 +1,6 @@
 package hexlet.code.builders;
 
+import hexlet.code.RecordKey;
 import hexlet.code.RecordStatus;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class CommonBuilder {
         final StringJoiner result = template;
 
         records.forEach(value -> {
-            RecordStatus status = (RecordStatus) value.get(KEY_ID_STATE);
+            RecordStatus status = (RecordStatus)value.get(RecordKey.STATE.name());
             String s = generators[status.ordinal()].generate(value);
             if (!s.equals("")) {
                 result.add(s);
