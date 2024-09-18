@@ -16,7 +16,7 @@ import static hexlet.code.Comparator.KEY_ID_TO;
 public final class Stylish implements Style {
     @Override
     public String apply(List<Map<String, Object>> compared) {
-        return CommonBuilder.build(compared, builders);
+        return CommonBuilder.build(compared, builders, new StringJoiner("\n", "{\n", "\n}"));
     }
 
     private String makeString(Object obj) {
@@ -60,7 +60,7 @@ public final class Stylish implements Style {
         return String.format("  - %s: %s", key, val);
     }
 
-    public RecordMaker[] builders = new RecordMaker[RecordStatus.LIMIT.ordinal()];
+    private RecordMaker[] builders = new RecordMaker[RecordStatus.LIMIT.ordinal()];
 
     public Stylish() {
         builders[RecordStatus.UNCHANGED.ordinal()] = this::buildUnchanged;

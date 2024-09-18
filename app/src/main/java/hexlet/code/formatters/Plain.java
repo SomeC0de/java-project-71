@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ClassUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import static hexlet.code.Comparator.KEY_ID_KEY;
 import static hexlet.code.Comparator.KEY_ID_VALUE;
@@ -16,7 +17,7 @@ import static hexlet.code.Comparator.KEY_ID_TO;
 public final class Plain implements Style {
     @Override
     public String apply(List<Map<String, Object>> compared) {
-        return CommonBuilder.build(compared, builders);
+        return CommonBuilder.build(compared, builders, new StringJoiner("\n"));
     }
 
     private static String makeString(Object obj) {
@@ -59,7 +60,7 @@ public final class Plain implements Style {
         return String.format("Property '%s' was removed", key);
     }
 
-    public RecordMaker[] builders = new RecordMaker[RecordStatus.LIMIT.ordinal()];
+    private RecordMaker[] builders = new RecordMaker[RecordStatus.LIMIT.ordinal()];
 
     public Plain() {
         builders[RecordStatus.UNCHANGED.ordinal()] = this::buildUnchanged;

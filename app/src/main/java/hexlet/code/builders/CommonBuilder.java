@@ -9,8 +9,8 @@ import java.util.StringJoiner;
 import static hexlet.code.Comparator.*;
 
 public class CommonBuilder {
-    public static String build(List<Map<String, Object>> records, RecordMaker[] generators) {
-        final StringJoiner result = new StringJoiner("\n", "{\n", "\n}");
+    public static String build(List<Map<String, Object>> records, RecordMaker[] generators, StringJoiner template) {
+        final StringJoiner result = template;
 
         records.forEach(value -> {
             String status = value.get(KEY_ID_STATE).toString().toUpperCase();
