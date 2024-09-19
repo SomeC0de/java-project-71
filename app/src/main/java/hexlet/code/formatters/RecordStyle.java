@@ -11,7 +11,7 @@ public enum RecordStyle {
         this.formatter = style;
     }
 
-    public static Style getFormater(String format) {
+    public static Style getFormatter(String format) {
         return RecordStyle.valueOf(format.toUpperCase()).formatter;
     }
 }
