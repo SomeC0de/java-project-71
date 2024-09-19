@@ -10,35 +10,42 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Parser {
-    static final String FILETYPE_JSON = "json";
-    static final String FILETYPE_YML = "yml";
-    static final String FILETYPE_YAML = "yaml";
+    private enum Filetypes {
+        JSON {
+            public ObjectMapper generateMapper() {
+                return new ObjectMapper();
+            }
+        },
+        YML {
+            public ObjectMapper generateMapper() {
+                return new YAMLMapper();
+            }
+        },
+        YAML {
+            public ObjectMapper generateMapper() {
+                return new YAMLMapper();
+            }
+        };
+
+        public abstract ObjectMapper generateMapper();
+    }
+
+    private static Map<String, Object> extract(File input, Filetypes filetype) {
+        ObjectMapper mapper;
+
+        try {
+            mapper = filetype.generateMapper();
+            Objects.requireNonNull(mapper);
+            return mapper.readValue(input, new TypeReference<>() { });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public static Map<String, Object> parse(File content, String filetype) {
         Objects.requireNonNull(content);
         Objects.requireNonNull(filetype);
 
-        ObjectMapper mapper;
-
-        switch (filetype.toLowerCase()) {
-            default -> throw new RuntimeException("Unknown filetype!");
-            case FILETYPE_JSON -> {
-                try {
-                    mapper = new ObjectMapper();
-                    Objects.requireNonNull(mapper);
-                    return mapper.readValue(content, new TypeReference<>() { });
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            case FILETYPE_YML, FILETYPE_YAML -> {
-                try {
-                    mapper = new YAMLMapper();
-                    Objects.requireNonNull(mapper);
-                    return mapper.readValue(content, new TypeReference<>() { });
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        return extract(content, Filetypes.valueOf(filetype.toUpperCase()));
     }
 }
