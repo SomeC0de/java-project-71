@@ -1,6 +1,7 @@
 package hexlet.code.builders;
 
 import hexlet.code.RecordKey;
+import hexlet.code.RecordStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,8 @@ public class CommonBuilder {
 
         records.forEach(value -> {
             String status = value.get(RecordKey.STATE.name()).toString();
-            int statusId = RecordKey.valueOf(status).ordinal();
-            String s = generators[statusId].generate(value);
+            int generatorId = RecordStatus.valueOf(status).ordinal();
+            String s = generators[generatorId].generate(value);
             if (!s.equals("")) { result.add(s); }
         });
 
