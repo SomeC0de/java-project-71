@@ -15,7 +15,7 @@ public class CommonBuilder {
             String status = value.get(RecordKey.STATE.name()).toString();
             int generatorId = RecordStatus.valueOf(status).ordinal();
             String s = generators[generatorId].generate(value);
-            if (!s.equals("")) { result.add(s); }
+            if (!s.isEmpty()) { result.add(s); }
         });
 
         return result.toString();
