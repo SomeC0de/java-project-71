@@ -1,7 +1,6 @@
 package hexlet.code.formatters;
 
 import hexlet.code.RecordKey;
-import hexlet.code.RecordStatus;
 import hexlet.code.builders.JsonBuilder;
 
 import java.util.LinkedHashMap;
