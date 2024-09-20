@@ -1,5 +1,7 @@
 package hexlet.code.formatters;
 
+import hexlet.code.RecordKey;
+import hexlet.code.RecordStatus;
 import hexlet.code.builders.JsonBuilder;
 
 import java.util.LinkedHashMap;
@@ -12,9 +14,13 @@ public final class Json implements Style {
         List<Map<String, Object>> normalized = compared.stream().map(element -> {
             Map<String, Object> lowercasedRecord = new LinkedHashMap<>();
             element.forEach((key, value) -> {
-                lowercasedRecord.put(key.toLowerCase(), value);
+                if (key.equals(RecordKey.STATE.name())) {
+                    lowercasedRecord.put(key.toLowerCase(), value.toString().toLowerCase());
+                } else {
+                    lowercasedRecord.put(key.toLowerCase(), value);
+                }
             });
-            return null;
+            return lowercasedRecord;
         }).toList();
         return JsonBuilder.build(normalized);
     }
